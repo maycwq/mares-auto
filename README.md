@@ -4,7 +4,7 @@ A responsive used-car discovery and evaluation experience for **Marés Automóve
 
 The product connects browsing, refinement, vehicle evaluation, value and risk signals, and commercial next steps without dropping context along the way.
 
-It started as the final solution of an AutoForce product design challenge. This repository is where that experience becomes a working product, so the focus from here is implementation rather than documenting the challenge itself.
+The experience originally started as a product design case and is now being developed here as a working product. From this point on, the repository is about implementing the final experience rather than documenting the exercise that started it.
 
 > **status:** pre-implementation — the repository does not have an application scaffold or a chosen stack yet.
 
@@ -58,7 +58,7 @@ They are **reference layouts, not the only supported viewport sizes**. The imple
 
 The Figma file is the visual and behavioral source for the current experience:
 
-[AutoForce · desafio de Product Design — Marés Automóveis](https://www.figma.com/design/PORVUjlL3WfuGI7kxW9JgJ/AutoForce-%7C-desafio-de-Product-Design?node-id=214-116)
+[Marés Automóveis · design source](https://www.figma.com/design/PORVUjlL3WfuGI7kxW9JgJ/AutoForce-%7C-desafio-de-Product-Design?node-id=214-116)
 
 Use it for:
 
