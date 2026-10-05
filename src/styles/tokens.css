@@ -1,0 +1,115 @@
+/*
+ * Design tokens from the Figma visual system (↳ visual system · style guide + components).
+ * Names follow the Figma variable paths: `color/foreground/primary` becomes
+ * `--color-foreground-primary`. Primitives exist only to feed the semantic aliases;
+ * components should use the semantic tokens.
+ */
+
+:root {
+  /* primitives · color */
+  --brand-50: #f0f5ff;
+  --brand-400: #527fff;
+  --brand-600: #214ceb;
+  --brand-700: #1b3fc5;
+  --brand-800: #183699;
+  --neutral-0: #ffffff;
+  --neutral-50: #f7f8fa;
+  --neutral-200: #dee2e7;
+  --neutral-300: #c8ced6;
+  --neutral-500: #68727e;
+  --neutral-600: #59616c;
+  --neutral-900: #171b22;
+  --neutral-950: #0b1020;
+  --green-50: #eef9f3;
+  --green-600: #18794e;
+  --amber-50: #fff8e8;
+  --amber-700: #8a5300;
+  --red-600: #c73e34;
+
+  /* semantic · color */
+  --color-foreground-primary: var(--neutral-900);
+  --color-foreground-secondary: var(--neutral-600);
+  --color-foreground-muted: var(--neutral-500);
+  --color-foreground-inverse: var(--neutral-0);
+  --color-surface-default: var(--neutral-0);
+  --color-surface-subtle: var(--neutral-50);
+  --color-surface-strong: var(--neutral-950);
+  --color-border-default: var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+  --color-action-primary: var(--brand-600);
+  --color-action-primary-hover: var(--brand-700);
+  --color-action-primary-pressed: var(--brand-800);
+  --color-action-focus: var(--brand-400);
+  --color-action-subtle: var(--brand-50);
+  --color-feedback-success: var(--green-600);
+  --color-feedback-success-subtle: var(--green-50);
+  --color-feedback-warning: var(--amber-700);
+  --color-feedback-warning-subtle: var(--amber-50);
+  --color-feedback-error: var(--red-600);
+
+  /* component · icon color (mode Default; modes are switched with data-icon-mode below) */
+  --color-icon: var(--color-foreground-primary);
+
+  /* dimensions */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --stroke-default: 1px;
+  --stroke-strong: 2px;
+  --size-control-md: 44px;
+  --size-control-lg: 52px;
+  --size-control-chip: 40px;
+
+  /*
+   * Text styles (type/*). Each style is a `font` shorthand plus its tracking:
+   *   font: var(--type-body-md);
+   *   letter-spacing: var(--type-body-md-tracking);
+   * Sizes are in rem (16px base) so the browser text size setting still applies.
+   */
+  --font-family-base: 'Inter', system-ui, sans-serif;
+
+  --type-display: 600 2.5rem / 3rem var(--font-family-base);
+  --type-display-tracking: -0.6px;
+  --type-heading-lg: 600 2rem / 2.5rem var(--font-family-base);
+  --type-heading-lg-tracking: -0.4px;
+  --type-heading-md: 600 1.5rem / 2rem var(--font-family-base);
+  --type-heading-md-tracking: -0.2px;
+  --type-heading-sm: 600 1.25rem / 1.75rem var(--font-family-base);
+  --type-heading-sm-tracking: -0.1px;
+  --type-body-md: 400 1rem / 1.5rem var(--font-family-base);
+  --type-body-md-tracking: 0;
+  --type-body-sm: 400 0.875rem / 1.25rem var(--font-family-base);
+  --type-body-sm-tracking: 0;
+  --type-label-md: 600 0.875rem / 1.25rem var(--font-family-base);
+  --type-label-md-tracking: 0;
+  --type-caption: 400 0.75rem / 1rem var(--font-family-base);
+  --type-caption-tracking: 0.1px;
+  --type-price-card: 600 1.75rem / 2rem var(--font-family-base);
+  --type-price-card-tracking: -0.3px;
+
+  /* elevation/overlay: only for temporary or floating UI, not for every surface */
+  --elevation-overlay: 0 6px 20px 0 rgb(11 16 32 / 0.12);
+}
+
+[data-icon-mode='default'] {
+  --color-icon: var(--color-foreground-primary);
+}
+
+[data-icon-mode='inverse'] {
+  --color-icon: var(--color-foreground-inverse);
+}
+
+[data-icon-mode='muted'] {
+  --color-icon: var(--color-foreground-muted);
+}
