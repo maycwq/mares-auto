@@ -6,7 +6,7 @@ The product connects browsing, refinement, vehicle evaluation, value and risk si
 
 The experience originally started as a product design case and is now being developed here as a working product. From this point on, the repository is about implementing the final experience rather than documenting the exercise that started it.
 
-> **status:** pre-implementation — the repository does not have an application scaffold or a chosen stack yet.
+> **status:** foundation — the app scaffold, design tokens, layout grid, and the brand and icon assets exist. There are no screens yet.
 
 ## product baseline
 
@@ -86,6 +86,63 @@ This is especially important while the codebase is still small: technical decisi
 
 ## development
 
-There is no application setup in the repository yet, so there are intentionally no install, run, test, or build commands documented here.
+The app is a static single-page build: **Vite + React + TypeScript**, styled with plain CSS (custom properties for tokens, CSS Modules for components). There is no router, state library, form library, or test runner yet; each one comes in when a feature actually needs it, and gets documented here when it does.
 
-Once the implementation defines a real framework, tooling, scripts, folder structure, data layer, tests, or deployment flow, this README should be updated with the commands and architecture that actually exist.
+Requires Node 20.19+ or 22.12+.
+
+```sh
+npm install
+npm run dev        # local dev server
+npm run build      # typecheck + production build into dist/
+npm run preview    # serve the production build
+npm run typecheck  # TypeScript only
+```
+
+### structure
+
+```
+src/
+  main.tsx                  entry: fonts and global styles
+  App.tsx
+  styles/
+    tokens.css              Figma variables and text styles as CSS custom properties
+    layout.css              grid and container
+    base.css                minimal reset and page defaults
+  components/
+    Brand/                  Brand / Marés
+    Icon/                   Icon / *
+  assets/
+    brand/                  Marés lockups, extracted from the Figma file
+    icons/                  system icons, extracted from the Figma file
+scripts/
+  extract-figma-assets.mjs  regenerates src/assets from a .fig export
+```
+
+### tokens
+
+`src/styles/tokens.css` mirrors the Figma variables one to one. Names follow the variable path, so `color/foreground/primary` becomes `--color-foreground-primary` and `space/4` becomes `--space-4`. Primitives (`--brand-600`, `--neutral-900`…) only feed the semantic aliases; components use the semantic tokens.
+
+Text styles are a `font` shorthand plus a tracking value:
+
+```css
+font: var(--type-heading-md);
+letter-spacing: var(--type-heading-md-tracking);
+```
+
+`color/icon` keeps its three Figma modes. An icon inherits the mode of its context, which can be switched with `data-icon-mode="inverse"` or `"muted"` on any element, or with the `mode` prop of `Icon`.
+
+### layout
+
+`layout.css` provides `.container` and `.grid`. At 390 px they match the mobile reference (4 columns, 16 gutter, 16 margin) and at 1440 px the desktop one (12 columns, 24 gutter, 96 margin). In between, the outer margin grows linearly from 16 to 96 px, and columns and gutter switch at 1024 px. Above 1440 the content stays 1248 px wide and centered. Composition changes for specific screens, like the filter rail becoming a sheet, are decided per feature.
+
+### brand and icons
+
+The SVGs in `src/assets` are generated from the vector geometry stored in the Figma file. Nothing is redrawn: brand paths are the exact fill geometry of the `Brand / Marés` variants (including the counter of the "é", which the source paints in the opposite tone instead of leaving open), and icons are the original vector networks with their stroke settings. Don't edit them by hand. When the source changes, export the file from Figma (File → Save local copy) and run:
+
+```sh
+npm run assets:extract -- path/to/file.fig
+```
+
+`Brand` renders a lockup (`signature` or `wordmark`) in a tone (`dark` for light surfaces, `light` for navy) and keeps the asset's proportion; size it by height in the consumer's CSS. `Brand / Marés / Compact / Dark` is extracted but has no component until a screen uses it.
+
+`Icon` renders one of the nine system icons at 20 px, colored by `color/icon`. Icons are decorative; the control around them carries the accessible name.
