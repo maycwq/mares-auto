@@ -1,10 +1,13 @@
+/* Surfaces inverted from the visual system on purpose: at rest the item sits on the
+   section's own surface (subtle) and only the dividers give it structure; hover lifts it
+   to white. Focus keeps the resting surface and adds the ring. */
 .disclosure {
   border-block: var(--stroke-default) solid var(--color-border-default);
-  background: var(--color-surface-default);
+  background: var(--color-surface-subtle);
 }
 
 .disclosure:has(.header:hover) {
-  background: var(--color-surface-subtle);
+  background: var(--color-surface-default);
 }
 
 .disclosure:has(.header:focus-visible) {
