@@ -56,6 +56,7 @@ const vehicles = plan.map((vehicle, index) => {
     media: vehicle.photos.map(media),
     evidence: vehicle.evidence,
     featuredEvidence: vehicle.featuredEvidence,
+    summaryEvidence: vehicle.summaryEvidence.length > 0 ? vehicle.summaryEvidence : undefined,
     ipvaPaidYear: vehicle.ipvaPaidYear,
     features: vehicle.features,
   };

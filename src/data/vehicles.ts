@@ -16,6 +16,9 @@ export type Evidence =
   // No auction, total loss or theft record.
   | { type: 'cleanHistory' };
 
+// Evidence types with copy in the design.
+export type ShownEvidenceType = 'warranty' | 'inspection' | 'serviceHistory';
+
 export type MediaItem = {
   src: string;
   credit?: { author: string; license: string; licenseUrl: string; source: string };
@@ -44,7 +47,11 @@ export type Vehicle = {
   evidence: Evidence[];
   // Which evidence the listing card shows, chosen per vehicle in the data. Only types
   // with copy in the design: single owner and clean history are not shown in the UI yet.
-  featuredEvidence?: 'warranty' | 'inspection' | 'serviceHistory';
+  // A vehicle has at most one evidence of each type, so the type identifies it.
+  featuredEvidence?: ShownEvidenceType;
+  // The evidence the vehicle page summary lists below that badge, in order: the first is
+  // highlighted, the second only fits the desktop summary. Also chosen in the data.
+  summaryEvidence?: ShownEvidenceType[];
   ipvaPaidYear?: number;
   features?: string[];
 };

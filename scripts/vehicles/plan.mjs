@@ -122,6 +122,17 @@ function planVehicle(model, index, catalog, photoSets) {
   const featurable = evidence.filter((item) => FEATURABLE_EVIDENCE.includes(item.type));
   const featuredEvidence = evidence.length > 0 && r.chance(0.8) ? r.pick(featurable)?.type : undefined;
 
+  // What the vehicle page summary lists below the badge, in order (the first one is
+  // highlighted, the second only fits the desktop summary). Also chosen here, so the UI
+  // never ranks evidence by itself. Its own stream, so the fields above don't change.
+  const summaryRandom = random(`${model.id}#${index}#summary`);
+  const summaryEvidence = featurable
+    .filter((item) => item.type !== featuredEvidence)
+    .map((item) => ({ type: item.type, order: summaryRandom.next() }))
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 2)
+    .map((item) => item.type);
+
   const features = r.chance(0.1)
     ? undefined
     : FEATURES.slice(0, trim.tier)
@@ -143,6 +154,7 @@ function planVehicle(model, index, catalog, photoSets) {
     photos: photoSet?.files ?? [],
     evidence,
     featuredEvidence,
+    summaryEvidence,
     ipvaPaidYear: r.chance(0.65) ? referenceYear : undefined,
     features: features?.length ? features : undefined,
     wantsFipe: Boolean(model.fipeBrand && trim.fipe) && r.chance(FIPE_RATE),
