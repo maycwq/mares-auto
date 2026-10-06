@@ -1,0 +1,61 @@
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: var(--size-control-lg);
+  padding: 0 var(--space-4);
+  border: var(--stroke-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-default);
+}
+
+.field:hover {
+  border-color: var(--color-border-strong);
+}
+
+.field:focus-within {
+  border-color: var(--color-action-focus);
+  outline: var(--stroke-default) solid var(--color-action-focus);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-foreground-primary);
+  font: var(--type-body-md);
+  letter-spacing: var(--type-body-md-tracking);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
+}
+
+.input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+/* The clear action keeps a 44px target while the field stays 52px tall. */
+.clear {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-control-md);
+  height: var(--size-control-md);
+  margin-right: calc(var(--space-3) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  cursor: pointer;
+}
+
+.clear:focus-visible {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+}

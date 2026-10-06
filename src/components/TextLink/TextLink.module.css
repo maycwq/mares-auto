@@ -1,0 +1,25 @@
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-action-primary);
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.textLink:focus-visible {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: 0;
+}
+
+.textLink:disabled {
+  cursor: default;
+  opacity: 0.6;
+  color: var(--color-foreground-muted);
+}

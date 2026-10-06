@@ -1,0 +1,27 @@
+.iconButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-control-md);
+  height: var(--size-control-md);
+  padding: 0;
+  border: var(--stroke-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-default);
+  cursor: pointer;
+}
+
+.iconButton:hover:not(:disabled) {
+  background: var(--color-action-subtle);
+}
+
+.iconButton:focus-visible {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: 0;
+}
+
+.iconButton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}

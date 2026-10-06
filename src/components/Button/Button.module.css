@@ -1,0 +1,74 @@
+/* Button: Style (primary, secondary, ghost) × Size (md, lg). State comes from CSS. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--size-control-md);
+  padding: 0 var(--space-4);
+  border: var(--stroke-default) solid transparent;
+  border-radius: var(--radius-md);
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: 0;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.62;
+  color: var(--color-foreground-muted);
+}
+
+.lg {
+  height: var(--size-control-lg);
+  padding: 0 var(--space-5);
+}
+
+.primary {
+  background: var(--color-action-primary);
+  color: var(--color-foreground-inverse);
+  --color-icon: var(--color-foreground-inverse);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-action-primary-hover);
+}
+
+.primary:active:not(:disabled) {
+  background: var(--color-action-primary-pressed);
+}
+
+.primary:disabled {
+  background: var(--color-surface-subtle);
+}
+
+.secondary {
+  background: var(--color-surface-default);
+  border-color: var(--color-action-primary);
+  color: var(--color-foreground-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-action-subtle);
+}
+
+.secondary:disabled {
+  border-color: var(--color-border-default);
+}
+
+.ghost {
+  background: var(--color-surface-default);
+  color: var(--color-foreground-primary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--color-action-subtle);
+}

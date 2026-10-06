@@ -1,0 +1,53 @@
+.select {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.control {
+  width: 100%;
+  height: var(--size-control-lg);
+  padding: 0 calc(var(--space-3) * 2 + 20px) 0 var(--space-3);
+  border: var(--stroke-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  appearance: none;
+  background: var(--color-surface-default);
+  color: var(--color-foreground-primary);
+  font: var(--type-body-md);
+  letter-spacing: var(--type-body-md-tracking);
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.control:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+}
+
+.control:focus-visible {
+  border-color: var(--color-action-focus);
+  outline: var(--stroke-default) solid var(--color-action-focus);
+}
+
+/* Default state: the placeholder option is selected and reads as muted. */
+.empty {
+  color: var(--color-foreground-muted);
+}
+
+.control:disabled {
+  cursor: default;
+  opacity: 0.6;
+  background: var(--color-surface-subtle);
+  color: var(--color-foreground-muted);
+}
+
+.control option {
+  color: var(--color-foreground-primary);
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  pointer-events: none;
+}

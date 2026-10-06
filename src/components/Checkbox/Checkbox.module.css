@@ -1,0 +1,66 @@
+/* The whole row is the target: 44px tall, label included. */
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--size-control-md);
+  padding: 0 var(--space-1);
+  color: var(--color-foreground-primary);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+  cursor: pointer;
+}
+
+/* The native input covers the row, invisible: it takes the click and the focus. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.indicator {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: var(--stroke-default) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-default);
+  --color-icon: var(--color-foreground-inverse);
+}
+
+.check {
+  width: 14px;
+  height: 14px;
+  visibility: hidden;
+}
+
+.checkbox:hover .indicator {
+  border-color: var(--color-foreground-primary);
+}
+
+.input:checked + .indicator {
+  border-color: var(--color-action-primary);
+  background: var(--color-action-primary);
+}
+
+.input:checked + .indicator .check {
+  visibility: visible;
+}
+
+.checkbox:hover .input:checked + .indicator {
+  border-color: var(--color-action-primary-hover);
+  background: var(--color-action-primary-hover);
+}
+
+.input:focus-visible + .indicator {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: calc(var(--stroke-strong) * -1);
+}
