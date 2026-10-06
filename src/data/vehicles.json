@@ -211,7 +211,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "inspection",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -306,7 +306,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -480,7 +479,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "serviceHistory",
+      "featuredEvidence": "inspection",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -690,7 +689,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "inspection",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -750,7 +749,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -1446,7 +1445,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -2031,7 +2029,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -2088,8 +2086,7 @@
         {
           "type": "cleanHistory"
         }
-      ],
-      "featuredEvidence": "cleanHistory"
+      ]
     },
     {
       "id": "v035",
@@ -2287,7 +2284,6 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -2682,7 +2678,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "inspection",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -2762,7 +2758,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -2942,7 +2937,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "singleOwner",
       "features": [
         "Direção elétrica",
         "Vidros e travas elétricos",
@@ -3171,7 +3165,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "inspection",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -3220,7 +3214,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Direção elétrica",
@@ -3402,7 +3395,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -4433,7 +4425,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "inspection",
+      "featuredEvidence": "warranty",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -4726,7 +4718,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "serviceHistory",
+      "featuredEvidence": "warranty",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -4883,7 +4875,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -4937,7 +4929,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -5146,7 +5137,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "serviceHistory",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -5356,7 +5347,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "serviceHistory",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -5404,7 +5395,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "features": [
         "Direção elétrica",
         "Central multimídia",
@@ -6233,7 +6223,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "inspection",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -6292,7 +6282,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "singleOwner"
+      "featuredEvidence": "inspection"
     },
     {
       "id": "v112",
@@ -6549,7 +6539,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -6821,7 +6811,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -7064,7 +7053,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -7325,7 +7314,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "serviceHistory",
+      "featuredEvidence": "inspection",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -7379,7 +7368,6 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -7512,7 +7500,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "inspection",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -7568,7 +7556,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026
     },
     {
@@ -8642,7 +8630,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "inspection",
+      "featuredEvidence": "warranty",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -9124,7 +9112,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "warranty",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -9238,7 +9226,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "features": [
         "Ar-condicionado",
         "Direção elétrica",
@@ -9293,7 +9281,7 @@
           "type": "singleOwner"
         }
       ],
-      "featuredEvidence": "singleOwner",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -9350,7 +9338,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "inspection",
+      "featuredEvidence": "warranty",
       "ipvaPaidYear": 2026,
       "features": [
         "Ar-condicionado",
@@ -9820,7 +9808,7 @@
           "type": "cleanHistory"
         }
       ],
-      "featuredEvidence": "cleanHistory",
+      "featuredEvidence": "serviceHistory",
       "ipvaPaidYear": 2026,
       "features": [
         "Direção elétrica",

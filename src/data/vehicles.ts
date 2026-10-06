@@ -42,8 +42,9 @@ export type Vehicle = {
   listedAt: string;
   media: MediaItem[];
   evidence: Evidence[];
-  // Which evidence the listing card shows, chosen per vehicle in the data.
-  featuredEvidence?: Evidence['type'];
+  // Which evidence the listing card shows, chosen per vehicle in the data. Only types
+  // with copy in the design: single owner and clean history are not shown in the UI yet.
+  featuredEvidence?: 'warranty' | 'inspection' | 'serviceHistory';
   ipvaPaidYear?: number;
   features?: string[];
 };

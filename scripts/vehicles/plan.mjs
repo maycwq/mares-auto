@@ -60,6 +60,8 @@ const MISSING_PHOTO_RATE = 0.045;
 // FIPE only shows up on part of the ads, even when a reference exists.
 const FIPE_RATE = 0.7;
 
+const FEATURABLE_EVIDENCE = ['warranty', 'inspection', 'serviceHistory'];
+
 const COLOR_WEIGHTS = [
   ['white', 30], ['silver', 20], ['gray', 20], ['black', 18], ['red', 6], ['blue', 4], ['brown', 1], ['green', 1],
 ];
@@ -114,7 +116,11 @@ function planVehicle(model, index, catalog, photoSets) {
   if (r.chance(age < 3 ? 0.4 : 0.2)) evidence.push({ type: 'singleOwner' });
   // No auction, total loss or theft record.
   if (r.chance(0.3)) evidence.push({ type: 'cleanHistory' });
-  const featuredEvidence = evidence.length > 0 && r.chance(0.8) ? r.pick(evidence).type : undefined;
+  // The card only features evidence that has copy in the design. singleOwner and
+  // cleanHistory stay in the data until they get their own content and presentation.
+  // Same draws as before the filter, so no other field of the vehicle changes.
+  const featurable = evidence.filter((item) => FEATURABLE_EVIDENCE.includes(item.type));
+  const featuredEvidence = evidence.length > 0 && r.chance(0.8) ? r.pick(featurable)?.type : undefined;
 
   const features = r.chance(0.1)
     ? undefined
