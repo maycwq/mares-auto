@@ -1,9 +1,12 @@
+/* Mobile first (V2): one vertical flow with 24px between everything. Desktop (V1)
+   groups the gallery and the summary side by side and spaces sections by 40px. */
+
 .main {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-12);
+  padding-top: var(--space-5);
+  padding-bottom: 56px;
 }
 
 .context {
@@ -13,15 +16,343 @@
   gap: var(--space-3);
 }
 
+.divider {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: var(--stroke-default) solid var(--color-border-default);
+}
+
+/* --- gallery + summary ---------------------------------------------------------- */
+
+.hero,
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.summary {
+  align-items: flex-start;
+}
+
+.summary > * {
+  max-width: 100%;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-action-primary);
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+}
+
 .title {
   margin: 0;
   font: var(--type-heading-lg);
   letter-spacing: var(--type-heading-lg-tracking);
 }
 
+.version {
+  margin: 0;
+  color: var(--color-foreground-secondary);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.summaryAttributes,
+.detailAttributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  margin: 0;
+}
+
+.detailAttributes {
+  column-gap: var(--space-8);
+}
+
+.priceNote {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+.summaryEvidence,
+.trustList,
+.shortcuts,
+.similarList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summaryEvidence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-self: stretch;
+}
+
+.cta {
+  align-self: stretch;
+  text-decoration: none;
+}
+
+.note {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+/* --- sections ----------------------------------------------------------------- */
+
+.section,
+.trust {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.sectionTitle {
+  margin: 0;
+  font: var(--type-heading-md);
+  letter-spacing: var(--type-heading-md-tracking);
+}
+
+.sectionText {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.trustList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.disclosureText {
+  margin: 0;
+}
+
+/* Commercial shortcuts: dark cards, the whole card is the link. */
+.shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.shortcut {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-strong);
+  color: var(--color-foreground-inverse);
+  box-sizing: border-box;
+}
+
+.shortcut:has(.shortcutLink:focus-visible) {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: var(--stroke-strong);
+}
+
+.shortcutLink {
+  color: inherit;
+  font: var(--type-heading-sm);
+  letter-spacing: var(--type-heading-sm-tracking);
+  text-decoration: none;
+  outline: none;
+}
+
+.shortcutLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.shortcutText {
+  margin: 0;
+  opacity: 0.72;
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.similarHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.similarCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.similarBack {
+  text-decoration: none;
+}
+
+.similarList {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+/* Cards in a row share the row's height, as in the listing. */
+.similarList > li {
+  display: flex;
+  min-width: 0;
+}
+
+.similarList > li > * {
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  height: 112px;
+}
+
+.footerLogo {
+  height: 20px;
+}
+
+/* Hidden below the desktop layout; above it, each element keeps its own display. */
+@media (max-width: 1023.98px) {
+  .wideOnly,
+  .similarList > .wideOnly {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .similarList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 1024px) {
   .main {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    row-gap: var(--space-10);
     padding-top: var(--space-8);
     padding-bottom: 80px;
+  }
+
+  .main > * {
+    grid-column: 1 / -1;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: start;
+  }
+
+  .hero > :first-child {
+    grid-column: span 7;
+  }
+
+  .summary {
+    position: relative;
+    grid-column: span 5;
+    gap: var(--space-4);
+    padding: 28px var(--space-6);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-default);
+    /* The 4px accent along the top edge. */
+    box-shadow: inset 0 4px 0 var(--color-action-primary);
+  }
+
+  .summaryAttributes,
+  .divider,
+  .priceNote {
+    align-self: stretch;
+  }
+
+  .cta {
+    align-self: flex-start;
+  }
+
+  .section {
+    gap: var(--space-4);
+  }
+
+  .sectionHeader {
+    gap: var(--space-4);
+  }
+
+  .trust {
+    gap: var(--space-4);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--color-feedback-success-subtle);
+  }
+
+  .trustList {
+    flex-direction: row;
+  }
+
+  .trustList > li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .main > .details {
+    grid-column: span 9;
+  }
+
+  .main > .commercial {
+    grid-column: span 10;
+  }
+
+  .shortcuts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shortcut {
+    padding: var(--space-5);
+  }
+
+  .similarHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .similarCopy {
+    gap: var(--space-1);
+  }
+
+  .similarBack {
+    flex: none;
+  }
+
+  .similarList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -1,0 +1,103 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.expand {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: none;
+  cursor: zoom-in;
+}
+
+.expand:focus-visible {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+  outline-offset: var(--stroke-strong);
+}
+
+/* One row, as in the design. Photos beyond the visible ones scroll sideways instead of
+   being dropped. The padding keeps the outside strokes from being clipped. */
+.thumbnails {
+  display: flex;
+  gap: var(--space-2);
+  margin: calc(-1 * var(--stroke-strong));
+  padding: var(--stroke-strong);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+/* Four per row on narrow screens (82 × 55 at 390), never larger than the component's
+   96 × 64. */
+.thumbnail {
+  flex-basis: min((100% - 3 * var(--space-2)) / 4, 96px);
+  scroll-snap-align: start;
+}
+
+/* --- overlay (V3) -------------------------------------------------------------- */
+
+.overlay {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-surface-strong);
+  color: var(--color-foreground-inverse);
+}
+
+.overlay[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.overlayHeader {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  height: 64px;
+  padding-inline: var(--grid-margin);
+}
+
+.overlayTitle {
+  margin: 0;
+  min-width: 0;
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+}
+
+/* The photo keeps its proportion; if the screen is too short for it and the controls,
+   the overlay scrolls instead of squeezing the photo. The space above it is V3's 120px
+   at the reference height and shrinks on short screens. */
+.overlayBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: clamp(var(--space-8), 15vh, 120px) var(--grid-margin) var(--space-8);
+  box-sizing: border-box;
+}
+
+.overlayNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.progress {
+  margin: 0;
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
