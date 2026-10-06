@@ -1,0 +1,27 @@
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.value {
+  margin: 0;
+  font: var(--type-price-card);
+  letter-spacing: var(--type-price-card-tracking);
+}
+
+.reference {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+.detail {
+  gap: var(--space-2);
+}
+
+.detail .value {
+  font: var(--type-heading-lg);
+  letter-spacing: var(--type-heading-lg-tracking);
+}

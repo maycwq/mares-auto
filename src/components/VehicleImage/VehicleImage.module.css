@@ -1,0 +1,34 @@
+.image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-subtle);
+}
+
+.card {
+  aspect-ratio: 356 / 210;
+}
+
+.gallery {
+  aspect-ratio: 720 / 470;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.missing {
+  border-radius: var(--radius-md);
+  color: var(--color-foreground-muted);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.gallery.missing {
+  border-radius: var(--radius-lg);
+}
