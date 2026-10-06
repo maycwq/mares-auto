@@ -16,17 +16,24 @@ import { FilterSheet } from './FilterSheet';
 import {
   PAGE_SIZE,
   appliedFilters,
+  countResults,
   listingSearch,
   resultCount,
   secondaryFilterCount,
   sortOptions,
-  vehicleCount,
 } from './listingState';
 import { MoreFiltersDrawer } from './MoreFiltersDrawer';
 import { useListing } from './useListing';
 import styles from './ListingPage.module.css';
 
 const SKELETON_COUNT = 6;
+
+// "Ver os N veículos" only when this click shows everything that's left, and N is what it
+// shows. While there's more after it, the action is incremental.
+const showMoreLabel = (remaining: number) => {
+  if (remaining > PAGE_SIZE) return 'Ver mais veículos';
+  return remaining === 1 ? 'Ver o último veículo' : `Ver os ${remaining} veículos`;
+};
 
 export function ListingPage() {
   const listing = useListing();
@@ -36,7 +43,10 @@ export function ListingPage() {
   const resultsList = useRef<HTMLUListElement>(null);
 
   const applied = appliedFilters(state.filters);
-  const refined = applied.length > 0 || state.query.trim() !== '';
+  // Only structured filters change the titles. Search text narrows the results (and their
+  // count) but it isn't a filter, and the design has no separate copy for it.
+  const filtered = applied.length > 0;
+  const stock = filtered ? countResults('', state.filters) : vehicles.length;
   const visible = results.slice(0, state.shown);
   const remaining = results.length - visible.length;
   const secondaryCount = secondaryFilterCount(state.filters);
@@ -60,7 +70,17 @@ export function ListingPage() {
             <h1 className={styles.title}>Encontre o carro que faz sentido para você</h1>
           </div>
           <p className={styles.stock}>
-            <span className={styles.stockNumber}>{vehicles.length}</span> veículos disponíveis
+            <span className={styles.stockNumber}>{stock}</span>{' '}
+            {filtered ? (
+              <>
+                <span className={styles.wideOnly}>{stock === 1 ? 'veículo com estes filtros' : 'veículos com estes filtros'}</span>
+                <span className={styles.narrowOnly}>{stock === 1 ? 'veículo encontrado' : 'veículos encontrados'}</span>
+              </>
+            ) : stock === 1 ? (
+              'veículo disponível'
+            ) : (
+              'veículos disponíveis'
+            )}
           </p>
         </section>
 
@@ -133,8 +153,14 @@ export function ListingPage() {
           <section className={styles.results} aria-labelledby="results-title" aria-busy={loading}>
             <div className={styles.resultsHeader}>
               <h2 id="results-title" className={styles.resultsTitle}>
-                <span className={styles.wideOnly}>{refined ? 'Seminovos com estes filtros' : 'Todos os seminovos'}</span>
-                <span className={styles.narrowOnly}>{refined ? 'Com estes filtros' : 'Todos'}</span>
+                {filtered ? (
+                  'Seminovos com estes filtros'
+                ) : (
+                  <>
+                    <span className={styles.wideOnly}>Todos os seminovos</span>
+                    <span className={styles.narrowOnly}>Todos</span>
+                  </>
+                )}
               </h2>
               <p className={styles.resultsCount} aria-live="polite">
                 {loading ? <span className="visually-hidden">Carregando resultados</span> : resultCount(results.length)}
@@ -175,7 +201,7 @@ export function ListingPage() {
 
             {!loading && remaining > 0 && (
               <Button variant="secondary" className={styles.more} onClick={showMore}>
-                {remaining <= PAGE_SIZE ? `Ver os ${vehicleCount(results.length)}` : 'Ver mais veículos'}
+                {showMoreLabel(remaining)}
               </Button>
             )}
           </section>

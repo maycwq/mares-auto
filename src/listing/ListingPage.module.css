@@ -187,6 +187,10 @@
     width: 220px;
   }
 
+  .stock .wideOnly {
+    display: block;
+  }
+
   .stockNumber {
     color: var(--color-foreground-primary);
     font: var(--type-display);
