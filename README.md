@@ -6,7 +6,7 @@ The product connects browsing, refinement, vehicle evaluation, value and risk si
 
 The experience originally started as a product design case and is now being developed here as a working product. From this point on, the repository is about implementing the final experience rather than documenting the exercise that started it.
 
-> **status:** foundation — the app scaffold, design tokens, layout grid, and the brand and icon assets exist. There are no screens yet.
+> **status:** the listing works on desktop and mobile (search, filters, sorting, applied filters, loading, empty state, load more) over a local dataset. The vehicle page only has its way back to the results so far; the next step comes after it.
 
 ## product baseline
 
@@ -86,7 +86,7 @@ This is especially important while the codebase is still small: technical decisi
 
 ## development
 
-The app is a static single-page build: **Vite + React + TypeScript**, styled with plain CSS (custom properties for tokens, CSS Modules for components). There is no router, state library, form library, or test runner yet; each one comes in when a feature actually needs it, and gets documented here when it does.
+The app is a static single-page build: **Vite + React + TypeScript**, styled with plain CSS (custom properties for tokens, CSS Modules for components), with **Vitest** for unit tests. There is no routing library, state library or form library; each one comes in when a feature actually needs it, and gets documented here when it does.
 
 Requires Node 20.19+ or 22.12+.
 
@@ -96,6 +96,7 @@ npm run dev        # local dev server
 npm run build      # typecheck + production build into dist/
 npm run preview    # serve the production build
 npm run typecheck  # TypeScript only
+npm test           # unit tests (Vitest)
 ```
 
 The vehicle dataset has its own commands; see [data/vehicles/README.md](data/vehicles/README.md).
@@ -110,9 +111,11 @@ src/
     tokens.css              Figma variables and text styles as CSS custom properties
     layout.css              grid and container
     base.css                minimal reset and page defaults
-  components/
-    Brand/                  Brand / Marés
-    Icon/                   Icon / *
+  components/               one folder per visual system component (Button, Select,
+                            Vehicle / Card…), named after it
+  listing/                  the listing page, its filters and its state
+  vehicle/                  the vehicle page
+  lib/                      router, formatting, small hooks
   assets/
     brand/                  Marés lockups, extracted from the Figma file
     icons/                  system icons, extracted from the Figma file
@@ -129,6 +132,14 @@ scripts/
 ### data
 
 There is no backend yet. The app reads a local dataset of 180 vehicles generated from structured sources with a fixed seed, so filters, sorting and counts run on stock that actually varies and stays the same between runs. Makes, models and versions are real; prices, mileage, stock and evidence are synthetic, and FIPE values are real or absent. Photos come from Wikimedia Commons under free licenses, with author and license kept per photo. How it's built and how to change it is in [data/vehicles/README.md](data/vehicles/README.md).
+
+### routing and state
+
+`src/lib/router.tsx` is a small history router: two kinds of pages don't need a library. Going to a new page starts at the top; going back returns to where the page was scrolled.
+
+The listing keeps its whole exploration state in the URL: search text, filters, sort and how many results are showing (`/?busca=civic&preco=150000&cambio=automatico&mostrar=24`). Fields, chips, counts and cards all read that one state, so opening a vehicle and coming back, or reloading, finds the same exploration. Refining the listing replaces the current history entry instead of adding one, so "back" leaves the listing instead of undoing filters. The mobile sheet and the desktop "mais filtros" drawer edit a draft that only becomes state when applied.
+
+Results are computed locally and shown after a short delay (`useListing.ts`), so the loading state exists before there's a backend. A result set that was already shown comes back immediately.
 
 ### tokens
 
