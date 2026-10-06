@@ -28,7 +28,8 @@ When one of the open points below is decided, move it to the decided list. When 
   - no refinement: "180 veículos disponíveis";
   - with filters (with or without search): "N veículos com estes filtros" on desktop, "N veículos encontrados" on mobile;
   - search only: "N veículos encontrados" on both.
-- **Composition can differ between breakpoints, the vehicle's information can't.** Desktop and mobile may place things differently (evidence is split differently between the summary and the trust section, the active filters sit next to "voltar" on desktop only), but every piece of data about the vehicle is available on both, and nothing is repeated just for symmetry.
+- **Composition can differ between breakpoints, the vehicle's information can't.** Desktop and mobile may place things differently (evidence is split differently between the summary and the trust section), but every piece of data about the vehicle is available on both, and nothing is repeated just for symmetry.
+- **The active filters next to "voltar" are desktop only.** Same content doesn't mean every contextual element at every width; what can't change is the exploration itself. On mobile the filters stay applied, the way back restores the same listing, and "Seus filtros continuam aplicados." says so.
 
 ### load more
 
@@ -38,6 +39,7 @@ When one of the open points below is decided, move it to the decided list. When 
 ### price and FIPE
 
 - **The first relevant mention on a page says "Tabela FIPE"**, since not everyone knows the acronym. Once it's established, small spaces can say just "FIPE". It's never replaced by something generic like "preço médio de mercado": it's a specific reference.
+- **Listing cards say "Tabela FIPE · R$ X".** A card can be where someone first meets the reference. No info button on cards; the explanation lives on the vehicle page, where there's room for it.
 - **On the vehicle page:** "Tabela FIPE: R$ 151.200" under the price, then the comparison: **"R$ X abaixo da Tabela FIPE"**, **"R$ X acima da Tabela FIPE"**, or **"no valor da Tabela FIPE"** when they match exactly. Not "na média": it's a comparison with one specific value.
 - **A short explanation sits next to that first mention**, behind an info button: "referência de preço médio de veículos no Brasil". It opens on click, tap or keyboard, never on hover alone, and doesn't take space when closed.
 - **Same content on every breakpoint.** If a vehicle has FIPE, the reference, the comparison and the explanation show on desktop and mobile.
@@ -57,7 +59,7 @@ When one of the open points below is decided, move it to the decided list. When 
 - **Next step panels (N1–N7):** reuse `Contact / Panel` and `CTA / Group` only where role and behavior really match the component. If the match is only visual, keep the composition without forcing a component.
   - The N1–N7 panels stay a composition. `Contact / Panel` has no place for the vehicle context above the eyebrow, and its title and padding are smaller; using it would mean new variants nobody asked for.
   - The financing form's two actions are a `CTA / Group` (stacked): it's exactly its role.
-- **Field errors use `Feedback / Inline Error`** (icon and message) under `Input / Text` in its error state. N3 draws the CPF error as the field's own red text, without the icon; all three fields now share the Inline Error treatment.
+- **Field errors use the full `Feedback / Inline Error`** (icon and message) under `Input / Text` in its error state, for every field. N3 draws the CPF error without the icon; the root component of the visual system wins over that inconsistency. Behavior is the same for all fields: the error is tied to its field, the message says what to fix, focus goes to the first error on submit, and fixing a field clears only its own error.
 - **Explanations go behind an info button (a toggletip).** The visual system has no tooltip or popover, so it's built from its tokens and `Icon / Info`. Used for the Tabela FIPE for now.
 - **The skeleton gets a subtle shimmer or pulse.** The design leaves motion undefined. It keeps the real `Vehicle / Card Skeleton` structure, causes no layout shift when data arrives, and becomes static or nearly static under `prefers-reduced-motion`.
 
@@ -66,8 +68,8 @@ When one of the open points below is decided, move it to the decided list. When 
 - **The page around the panels:** the site header, then the panel, at most 720px wide and centered. On narrow screens the panel spans the screen, like the 390px frames.
 - **N1 has no "Voltar ao veículo".** It follows the design; the browser's back button returns to the vehicle as it was. Reopen this only if people reach the next step without history behind it, or tests show trouble getting back.
 - **The enabled button in N1 says "Continuar"**, the primary action of `CTA / Group`. Disabled, it keeps "Escolha uma opção".
-- **"Tirar uma dúvida", "Agendar visita" and "Avaliar meu carro" stop at a short state.** "Continuar" opens it with vehicle and intent kept: "Essa opção ainda não pode ser concluída por aqui" / "Por enquanto, só a simulação de financiamento pode ser pedida por aqui.", and "Voltar e escolher outra opção". No form and no new flow for them.
-- **`Vehicle / Next-step Context` names those intents with their N1 labels** ("avaliar meu carro"), since that state has to show which intent was chosen.
+- **"Tirar uma dúvida", "Agendar visita" and "Avaliar meu carro" stop at a short state.** "Continuar" opens it with vehicle and intent kept. It says only "Essa opção ainda não está disponível por aqui" (a title, so no final period), with "Voltar e escolher outra opção" as its primary action. No sentence explaining the prototype's limits, no form and no new flow.
+- **`Vehicle / Next-step Context` shows the chosen intent as content, not as variants.** Anatomy, hierarchy and behavior stay the same; only the intent value changes: the design's "simulação de financiamento", or exactly the N1 label for the others ("Agendar visita").
 - **Error messages, specific and actionable like the CPF one:** "Informe seu nome." and "Confira o WhatsApp e digite o DDD e o número." The CPF is checked by its check digits too, not only by length; WhatsApp needs the area code (10 or 11 digits).
 - **The request is simulated** until there's a backend: one call with form, vehicle and intent. Nothing is stored. The confirmation stays after a reload or when coming back through history, and the form can't be sent twice.
 
@@ -98,6 +100,14 @@ When one of the open points below is decided, move it to the decided list. When 
 - **The gallery overlay is for narrow screens only (V3).** Tapping the photo opens it. On desktop the photo is already large and the design shows no overlay.
 - **The next step is its own page:** `/veiculos/:id/proximo-passo`, with the intent in the query when a shortcut picked one. It keeps vehicle and intent on reload and works with the browser's back button.
 - **The footer appears on the desktop vehicle page only**, as in V1.
+
+### deploy
+
+- **The app stays static and client-side.** No SSR, no backend and no framework change just for hosting. `npm run build` produces `dist/` with everything, photos and dataset included.
+- **Prepared for importing on Vercel, not deployed.** No Vercel project, account link or deployment was made, and `main` wasn't touched. Vercel detects Vite, `npm run build` and `dist` on its own, so `vercel.json` only adds what it can't infer: the SPA fallback.
+- **SPA fallback:** every path without a file extension gets `index.html`, so a reload or a direct link to a vehicle, the next step (with or without `?intencao=`) or the confirmation works. Files always win, and a missing file keeps a real 404 instead of receiving the page.
+- **No environment variables or secrets.** The project doesn't need any, so none were created. The Node version Vite requires is declared in `engines`, and `.vercel` (the CLI's local link) stays out of git.
+- **Personal data never leaves the form.** Name, WhatsApp and CPF don't go to the URL, storage, history or the build; after sending, only the simulated request id is kept with the history entry.
 
 ## still open
 
