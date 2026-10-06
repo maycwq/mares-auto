@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.iconButton:hover:not(:disabled) {
+.iconButton:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--color-action-subtle);
 }
 
@@ -21,7 +21,9 @@
   outline-offset: 0;
 }
 
-.iconButton:disabled {
+/* aria-disabled keeps the button focusable, e.g. "Próxima imagem" on the last photo. */
+.iconButton:disabled,
+.iconButton[aria-disabled='true'] {
   cursor: default;
   opacity: 0.5;
 }
