@@ -36,7 +36,18 @@ textarea {
   white-space: nowrap;
 }
 
-/* The page behind an open dialog doesn't scroll. */
-html:has(dialog[open]) {
+/* The page behind an open dialog doesn't scroll. A closing dialog's leaving copy is no
+   longer modal, so the page is free again while it goes. */
+html:has(dialog:modal) {
   overflow: hidden;
+}
+
+dialog:modal::backdrop {
+  animation: backdrop-in var(--motion-short) var(--ease-enter);
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
 }

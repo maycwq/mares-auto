@@ -17,12 +17,15 @@ import {
 } from 'react';
 
 type Location = { pathname: string; search: string };
-type Navigation = 'push' | 'replace' | 'pop';
+// initial: the page was loaded or reloaded here. pop: back/forward. Motion that explains
+// an in-app move only runs on push; pop and initial land directly.
+export type Navigation = 'initial' | 'push' | 'replace' | 'pop';
 
 type NavigateOptions = { replace?: boolean; state?: Record<string, unknown> };
 
 type Router = {
   location: Location;
+  navigation: Navigation;
   navigate: (to: string, options?: NavigateOptions) => void;
 };
 
@@ -33,7 +36,7 @@ const currentLocation = (): Location => ({ pathname: window.location.pathname, s
 export function RouterProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<{ location: Location; navigation: Navigation }>(() => ({
     location: currentLocation(),
-    navigation: 'pop',
+    navigation: 'initial',
   }));
 
   useEffect(() => {
@@ -58,10 +61,13 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   // Runs after the new page has rendered, so the restored position exists.
   useLayoutEffect(() => {
     if (state.navigation === 'push') window.scrollTo(0, 0);
-    if (state.navigation === 'pop') window.scrollTo(0, window.history.state?.scrollY ?? 0);
+    if (state.navigation === 'pop' || state.navigation === 'initial') window.scrollTo(0, window.history.state?.scrollY ?? 0);
   }, [state]);
 
-  const router = useMemo(() => ({ location: state.location, navigate }), [state.location, navigate]);
+  const router = useMemo(
+    () => ({ location: state.location, navigation: state.navigation, navigate }),
+    [state.location, state.navigation, navigate],
+  );
   return <RouterContext.Provider value={router}>{children}</RouterContext.Provider>;
 }
 
