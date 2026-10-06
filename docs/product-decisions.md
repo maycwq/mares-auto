@@ -55,8 +55,21 @@ When one of the open points below is decided, move it to the decided list. When 
 ### components
 
 - **Next step panels (N1–N7):** reuse `Contact / Panel` and `CTA / Group` only where role and behavior really match the component. If the match is only visual, keep the composition without forcing a component.
+  - The N1–N7 panels stay a composition. `Contact / Panel` has no place for the vehicle context above the eyebrow, and its title and padding are smaller; using it would mean new variants nobody asked for.
+  - The financing form's two actions are a `CTA / Group` (stacked): it's exactly its role.
+- **Field errors use `Feedback / Inline Error`** (icon and message) under `Input / Text` in its error state. N3 draws the CPF error as the field's own red text, without the icon; all three fields now share the Inline Error treatment.
 - **Explanations go behind an info button (a toggletip).** The visual system has no tooltip or popover, so it's built from its tokens and `Icon / Info`. Used for the Tabela FIPE for now.
 - **The skeleton gets a subtle shimmer or pulse.** The design leaves motion undefined. It keeps the real `Vehicle / Card Skeleton` structure, causes no layout shift when data arrives, and becomes static or nearly static under `prefers-reduced-motion`.
+
+### next step
+
+- **The page around the panels:** the site header, then the panel, at most 720px wide and centered. On narrow screens the panel spans the screen, like the 390px frames.
+- **N1 has no "Voltar ao veículo".** It follows the design; the browser's back button returns to the vehicle as it was. Reopen this only if people reach the next step without history behind it, or tests show trouble getting back.
+- **The enabled button in N1 says "Continuar"**, the primary action of `CTA / Group`. Disabled, it keeps "Escolha uma opção".
+- **"Tirar uma dúvida", "Agendar visita" and "Avaliar meu carro" stop at a short state.** "Continuar" opens it with vehicle and intent kept: "Essa opção ainda não pode ser concluída por aqui" / "Por enquanto, só a simulação de financiamento pode ser pedida por aqui.", and "Voltar e escolher outra opção". No form and no new flow for them.
+- **`Vehicle / Next-step Context` names those intents with their N1 labels** ("avaliar meu carro"), since that state has to show which intent was chosen.
+- **Error messages, specific and actionable like the CPF one:** "Informe seu nome." and "Confira o WhatsApp e digite o DDD e o número." The CPF is checked by its check digits too, not only by length; WhatsApp needs the area code (10 or 11 digits).
+- **The request is simulated** until there's a backend: one call with form, vehicle and intent. Nothing is stored. The confirmation stays after a reload or when coming back through history, and the form can't be sent twice.
 
 ### commercial shortcuts
 
@@ -91,5 +104,5 @@ When one of the open points below is decided, move it to the decided list. When 
 Each one gets decided when the feature that needs it is built, starting from the simplest option that keeps the specified product.
 
 - **Removing a filter from its chip.** It isn't specified, and it shouldn't be added just because other products do it.
-- **Contact, visit and trade-in intents.** Financing is the only detailed flow. The other three keep vehicle + intent, and no form is invented for them.
+- **What comes after contact, visit and trade-in.** For now they stop at the "ainda não pode ser concluída por aqui" state. Their real flow gets designed when there is one.
 - **"Lojas" and "Atendimento" in the header**, and a footer on mobile screens.
