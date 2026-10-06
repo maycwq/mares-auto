@@ -28,7 +28,7 @@ When one of the open points below is decided, move it to the decided list. When 
   - no refinement: "180 veículos disponíveis";
   - with filters (with or without search): "N veículos com estes filtros" on desktop, "N veículos encontrados" on mobile;
   - search only: "N veículos encontrados" on both.
-- **Composition differences are allowed.** The FIPE note, the active filters next to "voltar" and repeated evidence can differ between desktop and mobile. The information and state they carry stay available when needed, but nothing is duplicated just for symmetry.
+- **Composition can differ between breakpoints, the vehicle's information can't.** Desktop and mobile may place things differently (evidence is split differently between the summary and the trust section, the active filters sit next to "voltar" on desktop only), but every piece of data about the vehicle is available on both, and nothing is repeated just for symmetry.
 
 ### load more
 
@@ -37,9 +37,11 @@ When one of the open points below is decided, move it to the decided list. When 
 
 ### price and FIPE
 
-- **"R$ X abaixo da FIPE"** below the reference, **"R$ X acima da FIPE"** above it, and **"na média da FIPE"** when the price matches it exactly.
-- On the vehicle page the sentence keeps V1's ending with the reference value: "R$ 2.210 abaixo da FIPE de R$ 151.200", "… acima da FIPE de R$ …", "na média da FIPE de R$ …". It appears on desktop only, as in V1. The "FIPE · R$ …" line shows on both breakpoints.
-- The line only disappears when there is no FIPE value.
+- **The first relevant mention on a page says "Tabela FIPE"**, since not everyone knows the acronym. Once it's established, small spaces can say just "FIPE". It's never replaced by something generic like "preço médio de mercado": it's a specific reference.
+- **On the vehicle page:** "Tabela FIPE: R$ 151.200" under the price, then the comparison: **"R$ X abaixo da Tabela FIPE"**, **"R$ X acima da Tabela FIPE"**, or **"no valor da Tabela FIPE"** when they match exactly. Not "na média": it's a comparison with one specific value.
+- **A short explanation sits next to that first mention**, behind an info button: "referência de preço médio de veículos no Brasil". It opens on click, tap or keyboard, never on hover alone, and doesn't take space when closed.
+- **Same content on every breakpoint.** If a vehicle has FIPE, the reference, the comparison and the explanation show on desktop and mobile.
+- The lines only disappear when there is no FIPE value.
 
 ### evidence
 
@@ -53,11 +55,13 @@ When one of the open points below is decided, move it to the decided list. When 
 ### components
 
 - **Next step panels (N1–N7):** reuse `Contact / Panel` and `CTA / Group` only where role and behavior really match the component. If the match is only visual, keep the composition without forcing a component.
+- **Explanations go behind an info button (a toggletip).** The visual system has no tooltip or popover, so it's built from its tokens and `Icon / Info`. Used for the Tabela FIPE for now.
 - **The skeleton gets a subtle shimmer or pulse.** The design leaves motion undefined. It keeps the real `Vehicle / Card Skeleton` structure, causes no layout shift when data arrives, and becomes static or nearly static under `prefers-reduced-motion`.
 
 ### commercial shortcuts
 
-- **"Usar seu carro na troca" and "Entender o financiamento" keep the current vehicle.** They can open the next step with the matching intent already selected. They don't start a separate journey.
+- **"Usar seu carro na troca" and "Entender o financiamento" keep the current vehicle.** They open the next step with the matching intent already selected (`?intencao=troca`, `?intencao=financiamento`). They don't start a separate journey.
+- **"Escolher próximo passo" arrives without an intent:** N1 with the four options and the button disabled until one is chosen.
 
 ### photos
 
@@ -69,10 +73,11 @@ When one of the open points below is decided, move it to the decided list. When 
 
 ### vehicle page
 
-- **Opened directly, the way back leads to the whole stock.** With no listing behind the page, it says "Voltar para 180 veículos" and goes to the listing without filters.
-- **Similar vehicles come from the same exploration.** They're the other results of the search and filters that led to the vehicle, closest in price first: three on desktop, two on narrow screens (V1, V2). With no other results, the section keeps only the way back.
+- **"Voltar para N veículos" only when there is a listing to go back to**, and it restores that listing exactly, scroll included. Opened directly, the person was never there, so the same link says **"Ver todos os N veículos"** (N is the whole stock) and goes to the listing without filters. "Ainda comparando?" then has no text, since there are no results to go back to.
+- **Similar vehicles stay in the exploration that led to the vehicle:** the other results of the same search and filters, or the whole stock when it was opened directly. Inside that set: same model first, then same body type, then the closest price, then the closest year. Three on desktop, two on narrow screens (V1, V2). With fewer candidates, fewer are shown; the person's filters are never dropped to fill the row.
 - **"Seus filtros continuam aplicados." only appears when filters are applied**, and "ou veja opções semelhantes" only when there are similar vehicles.
-- **Evidence isn't repeated just for symmetry.** The badge is the one the listing card shows. The summary adds up to two other items, the first one highlighted; on narrow screens it keeps only that one. "O que já dá para conferir" lists everything on desktop and only the rest on narrow screens (V1 vs V2). With no evidence, the section goes away.
+- **What gets featured is decided in the data, not by the interface.** `featuredEvidence` is the listing card's badge and the badge of the vehicle summary. `summaryEvidence` lists, in order, what the summary shows below it: the first one highlighted, the second only in the desktop summary. Both are chosen when the dataset is generated; the UI never ranks evidence by its position.
+- **Evidence is split, not dropped.** On narrow screens the summary keeps only the highlighted item, and "O que já dá para conferir" lists everything else; on desktop it lists everything (V1 vs V2). Both breakpoints carry the same evidence. With no evidence, the section goes away.
 - **The condition text only says what the data supports:** laudo, IPVA and revisões. "Sem pendências informadas no anúncio" isn't shown, because the dataset has nothing that backs it. The text is the same on every breakpoint and wraps.
 - **"Itens e conforto" lists the vehicle's items separated by "·".**
 - **Thumbnails stay in one row and scroll sideways** when there are more photos than fit. Every photo stays reachable and the row keeps the design's geometry.
