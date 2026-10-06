@@ -25,6 +25,8 @@ A few principles matter enough to keep explicit here:
 
 These principles should survive implementation unless there is a concrete product or technical reason to change them.
 
+Decisions taken during implementation where the design is silent or contradicts itself, and the gaps still open, are kept in [docs/product-decisions.md](docs/product-decisions.md).
+
 ## visual system
 
 The implementation starts from an existing Figma visual system with foundations, tokens, reusable components, component states, responsive behavior, and handoff notes.
