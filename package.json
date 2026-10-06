@@ -8,6 +8,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "assets:extract": "node scripts/extract-figma-assets.mjs",
     "data:fipe": "node scripts/vehicles/fetch-fipe.mjs",
     "data:photos": "node scripts/vehicles/fetch-photos.mjs",
@@ -26,6 +27,7 @@
     "sharp": "^0.35.5",
     "typescript": "^7.0.2",
     "vite": "^8.3.2",
-    "vite-plugin-svgr": "^5.2.0"
+    "vite-plugin-svgr": "^5.2.0",
+    "vitest": "^5.0.3"
   }
 }
