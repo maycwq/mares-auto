@@ -1,4 +1,4 @@
-import { useEffect, useMemo, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, type MouseEvent, type ReactNode } from 'react';
 import { Brand } from '../components/Brand/Brand';
 import { buttonClassName } from '../components/Button/Button';
 import { Disclosure } from '../components/Disclosure/Disclosure';
@@ -14,6 +14,7 @@ import { vehicles } from '../data/vehicles';
 import { cx } from '../lib/cx';
 import { formatKm, formatNumber, formatPrice } from '../lib/format';
 import { Link, useRouter } from '../lib/router';
+import { useArrival } from '../lib/useArrival';
 import {
   colorLabel,
   conditionSummary,
@@ -41,6 +42,10 @@ const attributes = (pairs: (false | undefined | { label: string; value: string }
 export function VehiclePage({ id }: { id: string }) {
   const { navigate } = useRouter();
   const vehicle = vehicles.find((item) => item.id === id);
+  // Opened from a card or a similar vehicle, its identification settles in; the photo
+  // is already there.
+  const summary = useRef<HTMLDivElement>(null);
+  useArrival(summary, '[data-identity]');
 
   // The exploration this vehicle was opened from. Opened directly, it's the whole stock.
   const exploration = currentExploration();
@@ -105,10 +110,16 @@ export function VehiclePage({ id }: { id: string }) {
         <div className={styles.hero}>
           <Gallery vehicle={vehicle} />
 
-          <div className={styles.summary}>
-            <p className={styles.eyebrow}>{vehicleEyebrow(vehicle)}</p>
-            <h1 className={styles.title}>{vehicleTitle(vehicle)}</h1>
-            <p className={styles.version}>{vehicleVersion(vehicle)}</p>
+          <div ref={summary} className={styles.summary}>
+            <p data-identity className={styles.eyebrow}>
+              {vehicleEyebrow(vehicle)}
+            </p>
+            <h1 data-identity className={styles.title}>
+              {vehicleTitle(vehicle)}
+            </h1>
+            <p data-identity className={styles.version}>
+              {vehicleVersion(vehicle)}
+            </p>
             {badge && <StatusBadge tone="success" label={badge} />}
             <dl className={styles.summaryAttributes}>
               {attributes([

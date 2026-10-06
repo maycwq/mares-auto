@@ -7,6 +7,7 @@
 }
 
 .panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -16,10 +17,19 @@
   box-sizing: border-box;
   border-block: var(--stroke-default) solid var(--color-border-default);
   background: var(--color-surface-subtle);
+  transition: background-color var(--motion-medium) var(--ease-layout);
 }
 
 .success {
   background: var(--color-feedback-success-subtle);
+}
+
+/* What changes around the vehicle context: the choice, a form, a short state or the
+   confirmation. Spaced exactly like the panel. */
+.region {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 /* Inside the gray panel the context sits on white. */
@@ -68,6 +78,20 @@
   border: var(--stroke-default) solid var(--color-border-default);
   border-radius: var(--radius-md);
   background: var(--color-surface-default);
+  transition: border-color var(--motion-micro) var(--ease-exit);
+}
+
+/* The chosen option's border takes the accent; only the color changes. */
+.intent:has(:checked) {
+  border-color: var(--color-action-primary);
+  transition: border-color var(--motion-short) var(--ease-enter);
+}
+
+/* "Continuar" becomes available through its existing colors, a little slower than the
+   80 ms of hover and pressed. */
+.continue {
+  transition-duration: var(--motion-short);
+  transition-timing-function: var(--ease-enter);
 }
 
 .form {
@@ -91,6 +115,30 @@
 
 .fullWidth {
   width: 100%;
+}
+
+/* A failed send: the form's 16px gap moves inside the message, so it opens with it. */
+.failure {
+  margin-top: calc(-1 * var(--space-4));
+}
+
+.failureMessage {
+  padding-top: var(--space-4);
+}
+
+/* "Pedir simulação" and "Enviando solicitação" in the same cell; the one shown fades in. */
+.submitLabels {
+  display: grid;
+}
+
+.submitLabels > * {
+  grid-area: 1 / 1;
+  text-align: center;
+  transition: opacity var(--motion-micro) linear;
+}
+
+.submitLabels > [aria-hidden='true'] {
+  opacity: 0;
 }
 
 @media (min-width: 640px) {

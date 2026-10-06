@@ -1,15 +1,14 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import { Button, buttonClassName } from '../components/Button/Button';
-import { EmptyState } from '../components/EmptyState/EmptyState';
 import { FilterChip } from '../components/FilterChip/FilterChip';
 import { NavigationHeader } from '../components/NavigationHeader/NavigationHeader';
 import { SearchField } from '../components/SearchField/SearchField';
 import { Select } from '../components/Select/Select';
 import { TextLink } from '../components/TextLink/TextLink';
-import { VehicleCard } from '../components/VehicleCard/VehicleCard';
-import { VehicleCardSkeleton } from '../components/VehicleCardSkeleton/VehicleCardSkeleton';
 import { cx } from '../lib/cx';
 import { useMediaQuery } from '../lib/useMediaQuery';
+import { useCrossfade } from '../lib/useCrossfade';
+import { useStickyWhenFits } from '../lib/useStickyWhenFits';
 import { PrimaryFilters } from './FilterControls';
 import { FilterSheet } from './FilterSheet';
 import {
@@ -21,10 +20,11 @@ import {
   sortOptions,
 } from './listingState';
 import { MoreFiltersDrawer } from './MoreFiltersDrawer';
+import { ResultsGrid } from './ResultsGrid';
 import { useListing } from './useListing';
+import { useChipTransition } from './useChipTransition';
+import { useSearchDraft } from './useSearchDraft';
 import styles from './ListingPage.module.css';
-
-const SKELETON_COUNT = 6;
 
 // "Ver os N veículos" only when this click shows everything that's left, and N is what it
 // shows. While there's more after it, the action is incremental.
@@ -35,55 +35,118 @@ const showMoreLabel = (remaining: number) => {
 
 export function ListingPage() {
   const listing = useListing();
-  const { state, results, loading } = listing;
+  const { state, published, status, criteriaKey, navigation } = listing;
   const wide = useMediaQuery('(min-width: 1024px)');
   const [openPanel, setOpenPanel] = useState<'sheet' | 'drawer' | null>(null);
   const resultsList = useRef<HTMLUListElement>(null);
+  // The filters rail stays in reach while the results scroll, when it fits the window.
+  const rail = useRef<HTMLElement>(null);
+  useStickyWhenFits(rail, 24);
+  const search = useSearchDraft(state.query, listing.setQuery);
 
-  const applied = appliedFilters(state.filters);
-  // Only structured filters change the titles. Search text narrows the results but it
-  // isn't a filter, and the design has no separate copy for it.
+  // Everything that describes the result set (numbers, titles, chips) follows the
+  // published set; the controls follow what was asked for.
+  const results = published?.results ?? [];
+  const shownCriteria = published?.criteria ?? state;
+  const applied = appliedFilters(shownCriteria.filters);
   const filtered = applied.length > 0;
-  const searched = state.query.trim() !== '';
-  const visible = results.slice(0, state.shown);
-  const remaining = results.length - visible.length;
+  const searched = shownCriteria.query.trim() !== '';
+  const requestedFilters = appliedFilters(state.filters);
   const secondaryCount = secondaryFilterCount(state.filters);
 
-  const showMore = () => {
-    const firstNew = visible.length;
+  // While a new set is on its way, the old one keeps the size it had.
+  const publishedShown = useRef(state.shown);
+  const current = published?.key === criteriaKey;
+  const shown = current ? state.shown : publishedShown.current;
+  useLayoutEffect(() => {
+    if (current) publishedShown.current = state.shown;
+  });
+  const visible = results.slice(0, shown);
+  const remaining = results.length - visible.length;
+
+  // Ver mais keeps focus where the reading continues (the first new card) without moving
+  // the page for a pointer; from the keyboard, only as far as needed to see it.
+  const appendFocus = useRef<{ index: number; keyboard: boolean } | null>(null);
+  const showMore = (event: MouseEvent<HTMLButtonElement>) => {
+    appendFocus.current = { index: visible.length, keyboard: event.detail === 0 };
     listing.showMore();
-    // Keyboard and screen reader users continue from the first card that just appeared.
-    requestAnimationFrame(() => resultsList.current?.querySelectorAll('a')[firstNew]?.focus());
   };
+  useLayoutEffect(() => {
+    const target = appendFocus.current;
+    if (!target || visible.length <= target.index) return;
+    appendFocus.current = null;
+    const link = resultsList.current?.querySelectorAll<HTMLAnchorElement>('[data-motion-id] a')[target.index];
+    if (!link) return;
+    link.focus({ preventScroll: true });
+    if (target.keyboard) {
+      const box = link.getBoundingClientRect();
+      if (box.top < 0 || box.bottom > window.innerHeight) link.scrollIntoView({ block: 'nearest' });
+    }
+  }, [visible.length]);
+
+  // Back from a vehicle: the router restores the scroll position; focus returns to the
+  // card that was opened, without moving the page.
+  useLayoutEffect(() => {
+    if (navigation !== 'pop') return;
+    const origin: unknown = window.history.state?.originCardId;
+    if (typeof origin !== 'string') return;
+    resultsList.current?.querySelector<HTMLAnchorElement>(`[data-motion-id="${origin}"] a`)?.focus({ preventScroll: true });
+    // Only on arrival.
+  }, []);
+
+  // "Limpar filtros" in the empty state goes away with the results it brings back, so
+  // focus continues at the results' title, without moving the page.
+  const resultsTitle = useRef<HTMLHeadingElement>(null);
+  const focusResults = useRef(false);
+  const clearFromEmpty = () => {
+    focusResults.current = true;
+    listing.clearFilters();
+  };
+  useLayoutEffect(() => {
+    if (!focusResults.current) return;
+    focusResults.current = false;
+    resultsTitle.current?.focus({ preventScroll: true });
+  }, [published?.key]);
 
   const closePanel = useCallback(() => setOpenPanel(null), []);
+  const count = published ? results.length : undefined;
+  const main = useRef<HTMLElement>(null);
+  const chips = useRef<HTMLUListElement>(null);
+  useChipTransition(chips, main, applied, navigation !== 'pop');
+  // Both counts swap in the same commit as the cards, through a short crossfade.
+  const stockNumber = useCrossfade<HTMLSpanElement>(count === undefined ? '' : String(count));
+  const resultsCount = useCrossfade<HTMLParagraphElement>(count === undefined ? '' : resultCount(count));
 
   return (
     <>
       <NavigationHeader />
-      <main className={cx('container', styles.main)}>
+      <main ref={main} className={cx('container', styles.main)}>
         <section className={styles.hero}>
           <div className={styles.intro}>
             <p className={styles.eyebrow}>estoque de seminovos</p>
             <h1 className={styles.title}>Encontre o carro que faz sentido para você</h1>
           </div>
-          {/* The number is always the current result set: search, filters or both. Only
-              the words around it follow the state, as in D1, D2 and M3. */}
+          {/* The number is always the published set: search, filters or both. Only the
+              words around it follow the state, as in D1, D2 and M3. */}
+          {count !== undefined && (
           <p className={styles.stock}>
-            <span className={styles.stockNumber}>{results.length}</span>{' '}
+            <span ref={stockNumber} className={styles.stockNumber}>
+              {String(count)}
+            </span>{' '}
             {filtered ? (
               <>
-                <span className={styles.wideOnly}>{results.length === 1 ? 'veículo com estes filtros' : 'veículos com estes filtros'}</span>
-                <span className={styles.narrowOnly}>{results.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}</span>
+                <span className={styles.wideOnly}>{count === 1 ? 'veículo com estes filtros' : 'veículos com estes filtros'}</span>
+                <span className={styles.narrowOnly}>{count === 1 ? 'veículo encontrado' : 'veículos encontrados'}</span>
               </>
             ) : searched ? (
-              results.length === 1 ? 'veículo encontrado' : 'veículos encontrados'
-            ) : results.length === 1 ? (
+              count === 1 ? 'veículo encontrado' : 'veículos encontrados'
+            ) : count === 1 ? (
               'veículo disponível'
             ) : (
               'veículos disponíveis'
             )}
           </p>
+          )}
         </section>
 
         <div className={styles.toolbar}>
@@ -92,8 +155,10 @@ export function ListingPage() {
             label="Buscar por marca, modelo ou versão"
             placeholder={wide ? 'Buscar por marca, modelo ou versão' : 'Marca, modelo ou versão'}
             clearLabel="Limpar busca"
-            value={state.query}
-            onChange={listing.setQuery}
+            value={search.text}
+            onChange={search.change}
+            onSubmit={search.submit}
+            onClear={search.clear}
           />
           <Select
             className={styles.sort}
@@ -104,7 +169,7 @@ export function ListingPage() {
           />
           <div className={styles.mobileActions}>
             <Button variant="secondary" onClick={() => setOpenPanel('sheet')}>
-              {applied.length ? `Filtros · ${applied.length}` : 'Filtros'}
+              {requestedFilters.length ? `Filtros · ${requestedFilters.length}` : 'Filtros'}
             </Button>
             {/* Same sort as desktop, with the native picker behind a Button-shaped control. */}
             <label className={buttonClassName('secondary', 'md', styles.mobileSort)}>
@@ -126,9 +191,9 @@ export function ListingPage() {
         </div>
 
         {applied.length > 0 && (
-          <ul className={styles.chips} aria-label="Filtros aplicados">
+          <ul ref={chips} className={styles.chips} aria-label="Filtros aplicados">
             {applied.map((label) => (
-              <li key={label}>
+              <li key={label} data-chip={label}>
                 <FilterChip label={label} />
               </li>
             ))}
@@ -136,7 +201,7 @@ export function ListingPage() {
         )}
 
         <div className={styles.content}>
-          <aside className={styles.rail} aria-labelledby="filters-title">
+          <aside ref={rail} className={styles.rail} aria-labelledby="filters-title">
             <div className={styles.railHeader}>
               <h2 id="filters-title" className={styles.railTitle}>
                 Filtros
@@ -152,9 +217,9 @@ export function ListingPage() {
             <p className={styles.secondaryCaption}>câmbio · combustível · loja</p>
           </aside>
 
-          <section className={styles.results} aria-labelledby="results-title" aria-busy={loading}>
+          <section className={styles.results} aria-labelledby="results-title">
             <div className={styles.resultsHeader}>
-              <h2 id="results-title" className={styles.resultsTitle}>
+              <h2 id="results-title" ref={resultsTitle} tabIndex={-1} className={styles.resultsTitle}>
                 {filtered ? (
                   'Seminovos com estes filtros'
                 ) : (
@@ -164,44 +229,43 @@ export function ListingPage() {
                   </>
                 )}
               </h2>
-              <p className={styles.resultsCount} aria-live="polite">
-                {loading ? <span className="visually-hidden">Carregando resultados</span> : resultCount(results.length)}
-              </p>
+              <div className={styles.resultsMeta}>
+                {/* Outside the busy region, so the wait and the result can be announced. */}
+                {(status === 'slow' || status === 'failed') && (
+                  <p className={styles.resultsStatus} role="status">
+                    {status === 'slow' ? 'atualizando veículos' : 'não foi possível atualizar os veículos'}
+                  </p>
+                )}
+                {count !== undefined && (
+                  <p ref={resultsCount} className={styles.resultsCount} aria-live="polite">
+                    {resultCount(count)}
+                  </p>
+                )}
+              </div>
             </div>
 
-            {loading ? (
-              <div className={styles.grid}>
-                {Array.from({ length: SKELETON_COUNT }, (_, index) => (
-                  <VehicleCardSkeleton key={index} />
-                ))}
-              </div>
-            ) : results.length === 0 ? (
-              <EmptyState
-                title="nenhum veículo com estes filtros"
-                body="ajuste ou remova alguns filtros para ver mais veículos."
-                action={
-                  applied.length > 0 && (
-                    <Button variant="secondary" onClick={listing.clearFilters}>
-                      Limpar filtros
-                    </Button>
-                  )
-                }
-              />
-            ) : (
-              <ul ref={resultsList} className={styles.grid}>
-                {visible.map((vehicle) => (
-                  <li key={vehicle.id} className={styles.gridItem}>
-                    <VehicleCard
-                      vehicle={vehicle}
-                      href={`/veiculos/${vehicle.id}`}
-                      linkState={{ listingSearch: listingSearch(state) }}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ResultsGrid
+              published={published}
+              status={status}
+              visible={visible}
+              wide={wide}
+              animateChanges={navigation !== 'pop'}
+              listRef={resultsList}
+              emptyAction={
+                applied.length > 0 && (
+                  <Button variant="secondary" onClick={clearFromEmpty}>
+                    Limpar filtros
+                  </Button>
+                )
+              }
+              card={(vehicle) => ({
+                href: `/veiculos/${vehicle.id}`,
+                state: { listingSearch: listingSearch(state) },
+                onOpen: () => window.history.replaceState({ ...window.history.state, originCardId: vehicle.id }, ''),
+              })}
+            />
 
-            {!loading && remaining > 0 && (
+            {remaining > 0 && (
               <Button variant="secondary" className={styles.more} onClick={showMore}>
                 {showMoreLabel(remaining)}
               </Button>

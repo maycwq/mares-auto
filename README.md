@@ -142,13 +142,40 @@ There is no backend yet. The app reads a local dataset of 180 vehicles generated
 
 The listing keeps its whole exploration state in the URL: search text, filters, sort and how many results are showing (`/?busca=civic&preco=ate-150000&cambio=automatico&mostrar=24`). Fields, chips, counts and cards all read that one state, so opening a vehicle and coming back, or reloading, finds the same exploration. Refining the listing replaces the current history entry instead of adding one, so "back" leaves the listing instead of undoing filters. The mobile sheet and the desktop "mais filtros" drawer edit a draft that only becomes state when applied.
 
-Results are computed locally and shown after a short delay (`useListing.ts`), so the loading state exists before there's a backend. A result set that was already shown comes back immediately.
+Results are computed locally (`src/listing/stockSource.ts`) and published in the same frame as the change that asked for them. What was asked (controls, URL) and what is published (titles, chips, counts, cards) are separate: a request that has to wait keeps the current set on screen, says "atualizando veículos" after 160 ms, and only the latest request may publish (`stockRequester.ts`). The skeleton exists only for a first load that really waits.
 
 A vehicle page (`/veiculos/v014`) knows which exploration it came from through history state (`src/vehicle/exploration.ts`): the listing's query string and how many pages away it is. "Voltar para N veículos" goes back that many entries, so the listing returns exactly as it was, scroll included, even after opening a few similar vehicles. Opened directly, with no listing behind it, the link offers the whole stock instead ("Ver todos os 180 veículos") and goes to `/`. The similar vehicles come from that same exploration (or the whole stock), ranked by a few plain criteria in turn: same model, same body type, closest price, closest year (`similarVehicles.ts`).
 
 The next step is a page of its own, `/veiculos/v014/proximo-passo`. The chosen intent sits in the query (`?intencao=troca`), so the vehicle page's shortcuts arrive with it selected and a reload keeps it. "Continuar" opens `/veiculos/v014/proximo-passo/financiamento` (or the intent's own path); only financing has a form so far, the other intents stop at a short state that leads back to the choice.
 
+The choice and what follows it share one component (`NextStepShell.tsx`), so the vehicle context stays mounted while the region below it changes.
+
 The financing request (`src/nextStep/request.ts`) is one call with the form, the vehicle and the intent. Without a backend it only waits a moment and returns an id. Once sent, the history entry keeps that id, never the personal data, so the confirmation stays in place after a reload or when coming back to it, and the form can't be sent twice by accident.
+
+### motion
+
+Motion only makes a change readable: state, focus, validation and navigation never wait for it, and nothing decides business state on `animationend`. The direction is the motion audit and its matrix; the product decisions are in [docs/product-decisions.md](docs/product-decisions.md) ("motion").
+
+- **Five durations and three curves**, as tokens in `tokens.css` and constants in `src/lib/motion.ts`: 0, 80, 160, 240 and 320 ms; `--ease-enter`, `--ease-layout`, `--ease-exit`. Linear only for 80 ms feedback. No springs, no stagger.
+- **Offsets are small and mean something:** 8 px up for what identifies a page (on push only), 12 px sideways between next-step regions (inverted going back), 24/16 px for the gallery overlay.
+- **Leaving things are inert copies** (`inertCopy`): `aria-hidden`, `inert`, no pointer events. The real page is already in its final state underneath.
+- **A change halfway starts from what's on screen** (`animateHeight`, `animateOpacity`), and a newer change ends the older one in its final state.
+- **Reduced motion:** everything that moves or resizes lands in 0 ms; only photo and backdrop may fade, in 80 ms at most. CSS reads the media query through the tokens; scripts through `prefersReducedMotion()`. Turning it on in the middle of an animation finishes every animation and removes every copy (`settleAllMotion`).
+- **Where it lives:** the result-set transaction in `src/listing/gridTransition.ts` (at most 9 cards move on desktop, 4 on mobile); chips in `useChipTransition.ts`; counts in `src/lib/useCrossfade.ts`; dialogs in `src/lib/useModalDialog.ts`; next-step regions in `src/nextStep/useRegionTransition.ts`; field errors in `src/components/InlineError/useInlineErrorMotion.ts`; photos in `VehicleImage` and `src/vehicle/useGalleryIndex.ts`.
+
+#### testar motion
+
+The local data never waits or fails, so those states can be forced in development (`npm run dev`) from the browser console; production builds ignore it (`src/lib/devTest.ts`):
+
+```js
+window.__maresTest = { stockLatency: 800 }                          // every new result set waits
+window.__maresTest = { stockLatency: (c) => (c.query ? 900 : 150) } // answers out of order
+window.__maresTest = { stockFail: true }                            // result sets fail
+window.__maresTest = { requestLatency: 1500, requestFail: true }    // the financing request
+window.__maresTest = { photoLatency: 1200 }                         // gallery photos decode late
+```
+
+Never test sending against a real backend with repeated requests.
 
 ### tokens
 

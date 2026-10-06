@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, Ref } from 'react';
 import { cx } from '../../lib/cx';
 import styles from './Button.module.css';
 
@@ -13,6 +13,7 @@ export const buttonClassName = (variant: Variant = 'primary', size: Size = 'md',
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   size?: Size;
+  ref?: Ref<HTMLButtonElement>;
 };
 
 export function Button({ variant, size, className, type = 'button', ...props }: ButtonProps) {

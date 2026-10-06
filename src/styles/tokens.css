@@ -100,6 +100,28 @@
 
   /* elevation/overlay: only for temporary or floating UI, not for every surface */
   --elevation-overlay: 0 6px 20px 0 rgb(11 16 32 / 0.12);
+
+  /* motion: five durations and three curves (README, "motion"). Linear only for 80 ms
+     feedback and for gestures the person drives directly. No springs. */
+  --motion-instant: 0ms;
+  --motion-micro: 80ms;
+  --motion-short: 160ms;
+  --motion-medium: 240ms;
+  --motion-long: 320ms;
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-layout: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Reduced motion: every change lands in 0 ms. The few opacity fades that still help
+   (photo, backdrop) keep at most 80 ms and set it themselves. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-micro: 0ms;
+    --motion-short: 0ms;
+    --motion-medium: 0ms;
+    --motion-long: 0ms;
+  }
 }
 
 [data-icon-mode='default'] {

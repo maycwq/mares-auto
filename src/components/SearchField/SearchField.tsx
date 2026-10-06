@@ -6,6 +6,10 @@ import styles from './SearchField.module.css';
 type SearchFieldProps = {
   value: string;
   onChange: (value: string) => void;
+  // Enter and the clear button ask for results right away, without waiting for typing
+  // to settle.
+  onSubmit?: (value: string) => void;
+  onClear?: () => void;
   // Accessible name; the placeholder only helps visually.
   label: string;
   placeholder: string;
@@ -14,7 +18,7 @@ type SearchFieldProps = {
 };
 
 // Input / Search. The clear action shows up once there is a query.
-export function SearchField({ value, onChange, label, placeholder, clearLabel, className }: SearchFieldProps) {
+export function SearchField({ value, onChange, onSubmit, onClear, label, placeholder, clearLabel, className }: SearchFieldProps) {
   const input = useRef<HTMLInputElement>(null);
 
   return (
@@ -26,6 +30,9 @@ export function SearchField({ value, onChange, label, placeholder, clearLabel, c
         className={styles.input}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') onSubmit?.(event.currentTarget.value);
+        }}
         aria-label={label}
         placeholder={placeholder}
         autoComplete="off"
@@ -37,7 +44,8 @@ export function SearchField({ value, onChange, label, placeholder, clearLabel, c
           className={styles.clear}
           aria-label={clearLabel}
           onClick={() => {
-            onChange('');
+            if (onClear) onClear();
+            else onChange('');
             input.current?.focus();
           }}
         >

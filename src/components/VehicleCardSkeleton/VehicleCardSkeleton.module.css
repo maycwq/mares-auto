@@ -20,20 +20,12 @@
   gap: var(--space-3);
 }
 
-/* A soft highlight runs across the blocks; it never competes with real content. */
+/* Static blocks: the skeleton only shows on a first load that really waits, and it
+   doesn't pulse or shimmer while it does. */
 .block {
   max-width: 100%;
   border-radius: var(--radius-sm);
-  background: linear-gradient(
-      90deg,
-      transparent 0%,
-      color-mix(in srgb, var(--color-border-default) 55%, transparent) 50%,
-      transparent 100%
-    )
-    var(--color-surface-subtle);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
-  animation: shimmer 1.6s ease-in-out infinite;
+  background: var(--color-surface-subtle);
 }
 
 .image {
@@ -41,17 +33,4 @@
   border-radius: var(--radius-md);
 }
 
-@keyframes shimmer {
-  from {
-    background-position: 150% 0;
-  }
-  to {
-    background-position: -50% 0;
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .block {
-    animation: none;
-  }
-}

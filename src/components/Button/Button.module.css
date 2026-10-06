@@ -13,6 +13,10 @@
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
+  /* Hover, pressed and disabled change existing colors; focus shows at once. */
+  transition-property: background-color, border-color, color, opacity;
+  transition-duration: var(--motion-micro);
+  transition-timing-function: linear;
 }
 
 .button:focus-visible {

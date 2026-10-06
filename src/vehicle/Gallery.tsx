@@ -1,4 +1,5 @@
-import { useCallback, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useGalleryIndex } from './useGalleryIndex';
 import { GalleryCounter } from '../components/GalleryCounter/GalleryCounter';
 import { GalleryThumbnail } from '../components/GalleryThumbnail/GalleryThumbnail';
 import { VehicleImage } from '../components/VehicleImage/VehicleImage';
@@ -9,10 +10,12 @@ import { GalleryOverlay } from './GalleryOverlay';
 import styles from './Gallery.module.css';
 
 // Main image, thumbnails, counter and the mobile overlay all read one media list and one
-// index. Thumbnails are tabs: arrow keys move between them, the selected one is announced.
+// index (requested vs shown, see useGalleryIndex). Thumbnails are tabs: arrow keys move
+// between them, the selected one is announced.
 export function Gallery({ vehicle }: { vehicle: Vehicle }) {
   const wide = useMediaQuery('(min-width: 1024px)');
-  const [index, setIndex] = useState(0);
+  const gallery = useGalleryIndex(vehicle.media);
+  const { requested, shown, status } = gallery;
   const [overlayOpen, setOverlayOpen] = useState(false);
   const thumbnails = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
@@ -24,24 +27,38 @@ export function Gallery({ vehicle }: { vehicle: Vehicle }) {
   const panelId = `${id}-panel`;
 
   const selectFromKeyboard = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const targets: Record<string, number> = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: total - 1 };
+    const targets: Record<string, number> = { ArrowRight: requested + 1, ArrowLeft: requested - 1, Home: 0, End: total - 1 };
     if (!(event.key in targets)) return;
     event.preventDefault();
     const next = Math.min(Math.max(targets[event.key], 0), total - 1);
-    setIndex(next);
-    thumbnails.current[next]?.focus();
+    gallery.request(next, event.key === 'ArrowRight' || event.key === 'ArrowLeft');
+    // Focus moves with the selection without moving the page; only the row scrolls.
+    const thumbnail = thumbnails.current[next];
+    thumbnail?.focus({ preventScroll: true });
+    if (thumbnail) revealInRow(thumbnail);
   };
 
   const closeOverlay = useCallback(() => setOverlayOpen(false), []);
 
-  const image = <VehicleImage src={media[index]?.src} alt={title} aspect={wide ? 'gallery' : 'card'} loading="eager" />;
+  // Turning a tablet to the wide layout takes the overlay away (the photo is large
+  // there): it closes for good, on the same photo, and focus lands on that photo's
+  // thumbnail instead of nowhere.
+  useEffect(() => {
+    if (!wide || !overlayOpen) return;
+    setOverlayOpen(false);
+    thumbnails.current[requested]?.focus({ preventScroll: true });
+  }, [wide, overlayOpen, requested]);
+
+  const image = (
+    <VehicleImage src={media[shown.index]?.src} change={shown.change} alt={title} aspect={wide ? 'gallery' : 'card'} loading="eager" />
+  );
 
   return (
     <div className={styles.gallery}>
       <div
         id={panelId}
         role={total > 1 ? 'tabpanel' : undefined}
-        aria-labelledby={total > 1 ? tabId(index) : undefined}
+        aria-labelledby={total > 1 ? tabId(requested) : undefined}
       >
         {/* Only the narrow layout has the overlay (V3); on desktop the photo is already large. */}
         {wide || total === 0 ? (
@@ -64,32 +81,49 @@ export function Gallery({ vehicle }: { vehicle: Vehicle }) {
               }}
               role="tab"
               id={tabId(position)}
-              aria-selected={position === index}
+              aria-selected={position === requested}
               aria-controls={panelId}
-              tabIndex={position === index ? 0 : -1}
+              tabIndex={position === requested ? 0 : -1}
               label={`Imagem ${position + 1} de ${total}`}
               src={item.src}
-              selected={position === index}
+              selected={position === requested}
               className={styles.thumbnail}
-              onClick={() => setIndex(position)}
+              onClick={() => gallery.request(position)}
               onKeyDown={selectFromKeyboard}
             />
           ))}
         </div>
       )}
 
-      {total > 0 && <GalleryCounter current={index + 1} total={total} />}
+      {total > 0 && (
+        <div className={styles.status}>
+          <GalleryCounter current={shown.index + 1} total={total} />
+          {/* Said only after a real wait, or when a photo can't be shown. */}
+          <p className={styles.photoStatus} role="status">
+            {status === 'loading' ? 'carregando foto' : status === 'unavailable' ? 'foto indisponível' : ''}
+          </p>
+        </div>
+      )}
 
       {!wide && total > 0 && (
         <GalleryOverlay
           open={overlayOpen}
           title={title}
           media={media}
-          index={index}
-          onIndexChange={setIndex}
+          gallery={gallery}
           onClose={closeOverlay}
         />
       )}
     </div>
   );
+}
+
+// Scrolls the thumbnail row, and only the row, so a thumbnail reached by keyboard is seen.
+function revealInRow(thumbnail: HTMLElement) {
+  const row = thumbnail.parentElement;
+  if (!row) return;
+  const start = thumbnail.offsetLeft - row.offsetLeft;
+  const end = start + thumbnail.offsetWidth;
+  if (start < row.scrollLeft) row.scrollLeft = start;
+  else if (end > row.scrollLeft + row.clientWidth) row.scrollLeft = end - row.clientWidth;
 }

@@ -9,12 +9,29 @@
   background: var(--color-surface-default);
 }
 
-.card:hover {
+/* Hover and press only recolor the card's existing outline; the card and its photo stay
+   still. Hover needs a fine pointer, so a tap doesn't leave it behind; pressing shows
+   the same color on any pointer. Focus shows at once. */
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    outline: var(--stroke-default) solid transparent;
+    transition: outline-color var(--motion-micro) var(--ease-exit);
+  }
+
+  .card:hover {
+    outline-color: var(--color-border-strong);
+    transition: outline-color var(--motion-short) var(--ease-enter);
+  }
+}
+
+.card:has(.link:active) {
   outline: var(--stroke-default) solid var(--color-border-strong);
+  transition: outline-color var(--motion-micro) linear;
 }
 
 .card:has(.link:focus-visible) {
   outline: var(--stroke-strong) solid var(--color-action-focus);
+  transition: none;
 }
 
 .content {
