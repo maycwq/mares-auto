@@ -7,8 +7,9 @@ import styles from './NextStepContext.module.css';
 
 type NextStepContextProps = {
   vehicle: Vehicle;
-  // How the chosen intent reads ("simulação de financiamento"). Without one, the context
-  // says there's still a choice to make.
+  // The chosen intent, as text ("simulação de financiamento", "Agendar visita"). It's
+  // content of the same component, not a variant: anatomy and behavior don't change.
+  // Without one, the context says there's still a choice to make.
   intent?: string;
   className?: string;
 };

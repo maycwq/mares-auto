@@ -75,10 +75,10 @@ function NotAvailableYet({ vehicle, intent, context }: { vehicle: Vehicle; inten
       <NextStepContext vehicle={vehicle} intent={context} className={styles.context} />
       <p className={styles.eyebrow}>próximo passo</p>
       <h1 id={titleId} className={styles.title}>
-        Essa opção ainda não pode ser concluída por aqui
+        Essa opção ainda não está disponível por aqui
       </h1>
-      <p className={styles.text}>Por enquanto, só a simulação de financiamento pode ser pedida por aqui.</p>
-      <a {...chooseAgain} className={buttonClassName('secondary', 'md', styles.fullWidth)}>
+      {/* The one way forward from here, so it's the primary action. */}
+      <a {...chooseAgain} className={buttonClassName('primary', 'md', styles.fullWidth)}>
         Voltar e escolher outra opção
       </a>
     </section>

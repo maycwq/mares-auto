@@ -2,26 +2,27 @@ import type { Vehicle } from '../data/vehicles';
 
 // The four ways to continue with a vehicle (N1), in the design's order. The slug is what
 // goes in the URL (?intencao=financiamento, /proximo-passo/financiamento). `context` is
-// how Vehicle / Next-step Context names the intent once it's chosen. Only financing has a
-// detailed flow; the other three stop at a short "not available here yet" state.
+// the intent value Vehicle / Next-step Context shows once it's chosen: the design's copy
+// for financing, the N1 label for the others. Only financing has a detailed flow; the
+// other three stop at a short "not available here" state.
 export const intents = [
   {
     value: 'duvida',
     label: 'Tirar uma dúvida',
     detail: () => 'receba retorno da loja sobre este carro',
-    context: 'tirar uma dúvida',
+    context: 'Tirar uma dúvida',
   },
   {
     value: 'visita',
     label: 'Agendar visita',
     detail: () => 'combine dia e horário para ver o veículo',
-    context: 'agendar visita',
+    context: 'Agendar visita',
   },
   {
     value: 'troca',
     label: 'Avaliar meu carro',
     detail: () => 'comece a troca usando seu carro como referência',
-    context: 'avaliar meu carro',
+    context: 'Avaliar meu carro',
   },
   {
     value: 'financiamento',
