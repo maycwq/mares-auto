@@ -1,0 +1,489 @@
+{
+  "referenceDate": "2026-10-01",
+  "stores": [
+    { "id": "centro", "name": "Marés · Centro", "weight": 5 },
+    { "id": "cidade-nova", "name": "Marés · Cidade Nova", "weight": 3 },
+    { "id": "iguacu", "name": "Marés · Iguaçu", "weight": 2 }
+  ],
+  "models": [
+    {
+      "id": "chevrolet-onix", "make": "Chevrolet", "model": "Onix", "bodyType": "hatch", "doors": 4, "count": 6, "years": [2020, 2025],
+      "fipeBrand": "23", "commons": ["Category:Chevrolet Onix (GEM) hatchback"],
+      "trims": [
+        { "trim": "1.0", "version": "1.0 MT6", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 92000, "fipe": "ONIX HATCH 1.0 12V Flex 5p Mec." },
+        { "trim": "LT", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 108000, "fipe": "ONIX HATCH LT 1.0 12V TB Flex 5p Aut." },
+        { "trim": "LTZ", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 115000, "fipe": "ONIX HATCH LTZ 1.0 12V TB Flex 5p Aut." },
+        { "trim": "RS", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 121000 }
+      ]
+    },
+    {
+      "id": "chevrolet-onix-plus", "make": "Chevrolet", "model": "Onix Plus", "bodyType": "sedan", "doors": 4, "count": 5, "years": [2020, 2025],
+      "fipeBrand": "23", "commons": ["Category:Chevrolet Onix (GEM) sedan"],
+      "trims": [
+        { "trim": "LT", "version": "1.0 Turbo MT6", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 109000, "fipe": "ONIX SEDAN Plus LT 1.0 12V TB Flex Mec." },
+        { "trim": "LTZ", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 121000, "fipe": "ONIX SEDAN Plus LTZ 1.0 12V TB Flex Aut." },
+        { "trim": "Premier", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 129000, "fipe": "ONIX SED. Plus PREM. 1.0 12V TB Flex Aut" }
+      ]
+    },
+    {
+      "id": "chevrolet-tracker", "make": "Chevrolet", "model": "Tracker", "bodyType": "suv", "doors": 4, "count": 5, "years": [2021, 2025],
+      "fipeBrand": "23", "commons": ["Category:Chevrolet Tracker (4th generation)"],
+      "trims": [
+        { "trim": "LT", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 134000, "fipe": "TRACKER LT 1.0 Turbo 12V Flex Aut." },
+        { "trim": "LTZ", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 145000, "fipe": "TRACKER LTZ 1.0 Turbo 12V Flex Aut." },
+        { "trim": "Premier", "version": "1.2 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 162000, "fipe": "TRACKER Premier 1.2 Turbo 12V Flex Aut." },
+        { "trim": "RS", "version": "1.2 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 166000 }
+      ]
+    },
+    {
+      "id": "chevrolet-s10", "make": "Chevrolet", "model": "S10", "bodyType": "pickup", "doors": 4, "count": 4, "years": [2018, 2024],
+      "fipeBrand": "23", "commons": ["Category:Chevrolet S-10 (2012)", "Category:Chevrolet Colorado (second generation)"],
+      "trims": [
+        { "trim": "LT", "version": "2.8 Turbo Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 2, "priceNew": 265000, "fipe": "S10 Pick-Up LT 2.8 TDI 4x4 CD Diesel Aut" },
+        { "trim": "LTZ", "version": "2.8 Turbo Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 289000, "fipe": "S10 Pick-Up LTZ 2.8 TDI 4x4 CD Dies.Aut" },
+        { "trim": "LT", "version": "2.5 4x2 MT6", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 205000, "fipe": "S10 Pick-Up LT 2.5 Flex 4x2 CD" }
+      ]
+    },
+    {
+      "id": "chevrolet-spin", "make": "Chevrolet", "model": "Spin", "bodyType": "minivan", "doors": 4, "count": 2, "years": [2019, 2024],
+      "fipeBrand": "23", "commons": ["Category:Chevrolet Spin"],
+      "trims": [
+        { "trim": "LT", "version": "1.8 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 112000, "fipe": "SPIN LT 1.8 8V Econo.Flex 5p Mec." },
+        { "trim": "Premier", "version": "1.8 AT6 7 lugares", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 135000, "fipe": "SPIN PREMIER 1.8 8V Econo.Flex 5p Aut." }
+      ]
+    },
+    {
+      "id": "volkswagen-polo", "make": "Volkswagen", "model": "Polo", "bodyType": "hatch", "doors": 4, "count": 5, "years": [2018, 2025],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Polo VI"],
+      "trims": [
+        { "trim": "Track", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 93000, "fipe": "Polo Track 1.0 Flex 12V 5p" },
+        { "trim": "Comfortline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 112000, "fipe": "Polo Comfortline TSI 1.0 Flex 12V Aut." },
+        { "trim": "Highline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 124000, "fipe": "Polo Highline 200 TSI 1.0 Flex 12V Aut." },
+        { "trim": "GTS", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 139000, "fipe": "Polo GTS 1.4 TSI 16V Flex" }
+      ]
+    },
+    {
+      "id": "volkswagen-virtus", "make": "Volkswagen", "model": "Virtus", "bodyType": "sedan", "doors": 4, "count": 4, "years": [2019, 2025],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Virtus"],
+      "trims": [
+        { "trim": "Sense", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 108000, "fipe": "VIRTUS Sense 1.0 Flex 12V 5p Mec." },
+        { "trim": "Comfortline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 125000, "fipe": "VIRTUS Comfort. 200 TSI 1.0 Flex 12V Aut" },
+        { "trim": "Exclusive", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 148000, "fipe": "VIRTUS Exclusive 250TSI 1.4 Flex 16V Aut" }
+      ]
+    },
+    {
+      "id": "volkswagen-t-cross", "make": "Volkswagen", "model": "T-Cross", "bodyType": "suv", "doors": 4, "count": 6, "years": [2020, 2025],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen T-Cross (Brazil)", "Category:Volkswagen T-Cross (2019)"],
+      "trims": [
+        { "trim": "Sense", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 128000, "fipe": "T-Cross Sense 200 TSI 1.0 Flex 5p Aut." },
+        { "trim": "Comfortline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 141000, "fipe": "T-Cross Comfor. 200 TSI 1.0 Flex 5p Aut." },
+        { "trim": "Highline", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 162000, "fipe": "T-Cross Hig. 250 TSI 1.4 Flex 16V 5p Aut" }
+      ]
+    },
+    {
+      "id": "volkswagen-nivus", "make": "Volkswagen", "model": "Nivus", "bodyType": "suv", "doors": 4, "count": 4, "years": [2021, 2025],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Nivus"],
+      "trims": [
+        { "trim": "Comfortline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 132000, "fipe": "Nivus Comfortline 1.0 200 TSI Flex Aut." },
+        { "trim": "Highline", "version": "1.0 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 145000, "fipe": "Nivus Highline 1.0 200 TSI Flex Aut." },
+        { "trim": "GTS", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 158000 }
+      ]
+    },
+    {
+      "id": "volkswagen-taos", "make": "Volkswagen", "model": "Taos", "bodyType": "suv", "doors": 4, "count": 3, "years": [2021, 2025],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Taos"],
+      "trims": [
+        { "trim": "Comfortline", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 185000, "fipe": "TAOS Comfortline 1.4 250 TSI Flex Aut." },
+        { "trim": "Highline", "version": "1.4 TSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 212000, "fipe": "TAOS Highline 1.4 250 TSI Flex Aut." }
+      ]
+    },
+    {
+      "id": "volkswagen-amarok", "make": "Volkswagen", "model": "Amarok", "bodyType": "pickup", "doors": 4, "count": 3, "years": [2018, 2024],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Amarok Mk1"],
+      "trims": [
+        { "trim": "Comfortline", "version": "2.0 TDI 4x4 AT8", "transmission": "automatic", "fuel": "diesel", "tier": 2, "priceNew": 255000, "fipe": "AMAROK Comfor. CD 2.0 TDI 4x4 Dies. Aut." },
+        { "trim": "Highline", "version": "3.0 V6 TDI 4x4 AT8", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 315000, "fipe": "AMAROK Highline CD 3.0 4x4 TB Dies. Aut." }
+      ]
+    },
+    {
+      "id": "volkswagen-saveiro", "make": "Volkswagen", "model": "Saveiro", "bodyType": "pickup", "doors": 2, "count": 3, "years": [2018, 2024],
+      "fipeBrand": "59", "commons": ["Category:Volkswagen Saveiro (third generation)"],
+      "trims": [
+        { "trim": "Robust", "version": "1.6 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 96000, "fipe": "Saveiro Robust 1.6 Total Flex 8V" },
+        { "trim": "Cross", "version": "1.6 cabine dupla MT5", "transmission": "manual", "fuel": "flex", "tier": 3, "priceNew": 118000, "fipe": "Saveiro CROSS 1.6 T.Flex 16V CD" }
+      ]
+    },
+    {
+      "id": "fiat-argo", "make": "Fiat", "model": "Argo", "bodyType": "hatch", "doors": 4, "count": 5, "years": [2018, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Argo"],
+      "trims": [
+        { "trim": "1.0", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 86000, "fipe": "ARGO 1.0 6V Flex" },
+        { "trim": "Drive", "version": "1.3 MT5", "transmission": "manual", "fuel": "flex", "tier": 2, "priceNew": 98000, "fipe": "ARGO DRIVE 1.3 8V Flex" },
+        { "trim": "Drive", "version": "1.3 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 106000, "fipe": "ARGO DRIVE 1.3 8V Flex Aut." },
+        { "trim": "Trekking", "version": "1.3 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 110000, "fipe": "ARGO TREKKING 1.3 8V Flex Aut." }
+      ]
+    },
+    {
+      "id": "fiat-cronos", "make": "Fiat", "model": "Cronos", "bodyType": "sedan", "doors": 4, "count": 4, "years": [2019, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Cronos"],
+      "trims": [
+        { "trim": "Drive", "version": "1.3 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 101000, "fipe": "CRONOS DRIVE 1.3 8V Flex" },
+        { "trim": "Drive", "version": "1.3 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 110000, "fipe": "CRONOS DRIVE 1.3 8V Flex Aut." },
+        { "trim": "Precision", "version": "1.3 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 116000, "fipe": "CRONOS PRECISION 1.3 8V Flex Aut." }
+      ]
+    },
+    {
+      "id": "fiat-mobi", "make": "Fiat", "model": "Mobi", "bodyType": "hatch", "doors": 4, "count": 3, "years": [2019, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Mobi"],
+      "trims": [
+        { "trim": "Like", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 72000, "fipe": "MOBI LIKE 1.0 Fire Flex 5p." },
+        { "trim": "Trekking", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 2, "priceNew": 78000, "fipe": "MOBI TREKKING 1.0 Flex 5p." }
+      ]
+    },
+    {
+      "id": "fiat-pulse", "make": "Fiat", "model": "Pulse", "bodyType": "suv", "doors": 4, "count": 4, "years": [2022, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Pulse"],
+      "trims": [
+        { "trim": "Drive", "version": "1.3 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 104000, "fipe": "PULSE DRIVE 1.3 8V Flex Mec." },
+        { "trim": "Drive", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 122000, "fipe": "PULSE DRIVE 1.0 Turbo 200 Flex Aut." },
+        { "trim": "Audace", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 128000, "fipe": "PULSE AUDACE 1.0 Turbo 200 Flex Aut." },
+        { "trim": "Impetus", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 136000, "fipe": "PULSE IMPETUS 1.0 TURBO 200 Flex Aut." }
+      ]
+    },
+    {
+      "id": "fiat-toro", "make": "Fiat", "model": "Toro", "bodyType": "pickup", "doors": 4, "count": 5, "years": [2019, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Toro"],
+      "trims": [
+        { "trim": "Endurance", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 162000, "fipe": "Toro Endurance 1.3 T270 4x2 Flex Aut." },
+        { "trim": "Freedom", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 172000, "fipe": "Toro Freedom 1.3 T270 4x2 Flex Aut." },
+        { "trim": "Volcano", "version": "2.0 Turbo Diesel 4x4 AT9", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 215000, "fipe": "Toro Volcano 2.0 16V 4x4 TB Diesel Aut." },
+        { "trim": "Ranch", "version": "2.0 Turbo Diesel 4x4 AT9", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 222000, "fipe": "Toro Ranch 2.0 16V 4x4 TB Diesel Aut." }
+      ]
+    },
+    {
+      "id": "fiat-strada", "make": "Fiat", "model": "Strada", "bodyType": "pickup", "doors": 4, "count": 6, "years": [2021, 2025],
+      "fipeBrand": "21", "commons": ["Category:Fiat Strada (type 281)"],
+      "trims": [
+        { "trim": "Endurance", "version": "1.3 cabine plus MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 105000, "doors": 2, "fipe": "Strada Endurance 1.3 Flex 8V CS Plus" },
+        { "trim": "Freedom", "version": "1.3 cabine dupla MT5", "transmission": "manual", "fuel": "flex", "tier": 2, "priceNew": 118000, "fipe": "Strada Freedom 1.3 Flex 8V CD" },
+        { "trim": "Volcano", "version": "1.3 cabine dupla CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 131000, "fipe": "Strada Volcano 1.3 Flex 8V CD Aut." },
+        { "trim": "Ranch", "version": "1.0 Turbo cabine dupla CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 138000, "fipe": "Strada Ranch 1.0 Flex Turbo CD Aut." }
+      ]
+    },
+    {
+      "id": "hyundai-hb20", "make": "Hyundai", "model": "HB20", "bodyType": "hatch", "doors": 4, "count": 6, "years": [2020, 2025],
+      "fipeBrand": "26", "commons": ["Category:Hyundai HB20 (BR2)"],
+      "trims": [
+        { "trim": "Sense", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 84000, "fipe": "HB20 Sense 1.0 Flex 12V Mec." },
+        { "trim": "Comfort", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 103000, "fipe": "HB20 Comfort 1.0 TB Flex 12V Aut" },
+        { "trim": "Limited", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 109000, "fipe": "HB20 Limited 1.0 TB Flex 12V Aut." },
+        { "trim": "Platinum", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 118000, "fipe": "HB20 Platinum 1.0 TB Flex 12V Aut." }
+      ]
+    },
+    {
+      "id": "hyundai-creta", "make": "Hyundai", "model": "Creta", "bodyType": "suv", "doors": 4, "count": 5, "years": [2022, 2025],
+      "fipeBrand": "26", "commons": ["Category:Hyundai Creta (SU2)"],
+      "trims": [
+        { "trim": "Comfort", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 135000, "fipe": "Creta Comfort 1.0 TB 12V Flex Aut." },
+        { "trim": "Limited", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 152000, "fipe": "Creta Limited 1.0 TB 12V Flex Aut." },
+        { "trim": "Platinum", "version": "1.0 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 165000, "fipe": "Creta Platinum 1.0 TB 12V Flex Aut." },
+        { "trim": "Ultimate", "version": "2.0 AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 172000, "fipe": "Creta Ultimate 2.0 16V Flex Aut." }
+      ]
+    },
+    {
+      "id": "hyundai-tucson", "make": "Hyundai", "model": "Tucson", "bodyType": "suv", "doors": 4, "count": 2, "years": [2018, 2022],
+      "fipeBrand": "26", "commons": ["Category:Hyundai Tucson (TL)"],
+      "trims": [
+        { "trim": "GLS", "version": "1.6 Turbo DCT7", "transmission": "automatic", "fuel": "gasoline", "tier": 2, "priceNew": 170000, "fipe": "Tucson GLS 1.6 Turbo 16V Aut." },
+        { "trim": "Limited", "version": "1.6 Turbo DCT7", "transmission": "automatic", "fuel": "gasoline", "tier": 3, "priceNew": 185000, "fipe": "Tucson Limited 1.6 Turbo 16V Aut." }
+      ]
+    },
+    {
+      "id": "toyota-corolla", "make": "Toyota", "model": "Corolla", "bodyType": "sedan", "doors": 4, "count": 5, "years": [2020, 2025],
+      "fipeBrand": "56", "commons": ["Category:Toyota Corolla (E210) sedan"],
+      "trims": [
+        { "trim": "GLi", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 152000, "fipe": "Corolla GLi 2.0 16V Flex Aut." },
+        { "trim": "XEi", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 168000, "fipe": "Corolla XEi 2.0 Flex 16V Aut." },
+        { "trim": "Altis Hybrid", "version": "1.8 Hybrid CVT", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 188000, "fipe": "Corolla Altis 1.8 16V Aut. (Híbrido)" }
+      ]
+    },
+    {
+      "id": "toyota-corolla-cross", "make": "Toyota", "model": "Corolla Cross", "bodyType": "suv", "doors": 4, "count": 5, "years": [2022, 2025],
+      "fipeBrand": "56", "commons": ["Category:Toyota Corolla Cross"],
+      "trims": [
+        { "trim": "XR", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 165000, "fipe": "Corolla Cross XR 2.0 16V Flex Aut." },
+        { "trim": "XRE", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 182000, "fipe": "Corolla Cross XRE 2.0 16V Flex Aut." },
+        { "trim": "XRX Hybrid", "version": "1.8 Hybrid CVT", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 205000, "fipe": "Corolla Cross XRX 1.8 16V Aut. (Híbrido)" }
+      ]
+    },
+    {
+      "id": "toyota-hilux", "make": "Toyota", "model": "Hilux", "bodyType": "pickup", "doors": 4, "count": 4, "years": [2018, 2025],
+      "fipeBrand": "56", "commons": ["Category:Toyota HiLux (AN120/AN130)"],
+      "trims": [
+        { "trim": "SR", "version": "2.8 Turbo Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 1, "priceNew": 265000, "fipe": "Hilux CD SR 4x4 2.8 TDI Diesel Aut." },
+        { "trim": "SRV", "version": "2.8 Turbo Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 2, "priceNew": 289000 },
+        { "trim": "GR-Sport", "version": "2.8 Turbo Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 325000, "fipe": "Hilux CD GR-S 4x4 2.8 TDI Dies. Aut." }
+      ]
+    },
+    {
+      "id": "toyota-sw4", "make": "Toyota", "model": "SW4", "bodyType": "suv", "doors": 4, "count": 2, "years": [2018, 2024],
+      "fipeBrand": "56", "commons": ["Category:Toyota Fortuner (AN150/AN160)"],
+      "trims": [
+        { "trim": "SRX", "version": "2.8 Turbo Diesel 4x4 AT6 7 lugares", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 380000, "fipe": "Hilux SW4 SRX 4x4 2.8 TDI 16V Dies. Aut." },
+        { "trim": "Diamond", "version": "2.8 Turbo Diesel 4x4 AT6 7 lugares", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 410000, "fipe": "Hilux SW4 Diamond 2.8 TB 4x4 Die. Aut." }
+      ]
+    },
+    {
+      "id": "honda-civic-10", "make": "Honda", "model": "Civic", "bodyType": "sedan", "doors": 4, "count": 3, "years": [2017, 2021],
+      "fipeBrand": "25", "commons": ["Category:Honda Civic (2016, Brazil)", "Category:Honda Civic (2015) sedan"],
+      "trims": [
+        { "trim": "Sport", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 132000, "fipe": "Civic Sedan SPORT 2.0 Flex 16V Aut.4p" },
+        { "trim": "EXL", "version": "2.0 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 145000, "fipe": "Civic Sedan EXL 2.0 Flex 16V Aut.4p" },
+        { "trim": "Touring", "version": "1.5 Turbo CVT", "transmission": "automatic", "fuel": "gasoline", "tier": 3, "priceNew": 168000, "fipe": "Civic Sedan TOURING 1.5 Turbo 16V Aut.4p" }
+      ]
+    },
+    {
+      "id": "honda-civic-11", "make": "Honda", "model": "Civic", "bodyType": "sedan", "doors": 4, "count": 2, "years": [2023, 2025],
+      "commons": ["Category:Honda Civic 11th generation", "Category:Honda Civic (2021) sedan"],
+      "trims": [
+        { "trim": "Advanced Hybrid", "version": "2.0 e:HEV e-CVT", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 265000 }
+      ]
+    },
+    {
+      "id": "honda-city", "make": "Honda", "model": "City", "bodyType": "sedan", "doors": 4, "count": 3, "years": [2022, 2025],
+      "fipeBrand": "25", "commons": ["Category:Honda City (7th generation)"],
+      "trims": [
+        { "trim": "EX", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 118000, "fipe": "CITY Sedan EX 1.5 Flex 16V 4p Aut." },
+        { "trim": "Touring", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 132000, "fipe": "CITY Sedan Touring 1.5 Flex 16V 4p Aut." }
+      ]
+    },
+    {
+      "id": "honda-hr-v", "make": "Honda", "model": "HR-V", "bodyType": "suv", "doors": 4, "count": 4, "years": [2023, 2025],
+      "fipeBrand": "25", "commons": ["Category:Honda HR-V (3rd generation)"],
+      "trims": [
+        { "trim": "EX", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 152000, "fipe": "HR-V EX 1.5 Flex Sensing 16V 5p Aut." },
+        { "trim": "EXL", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 162000, "fipe": "HR-V EXL 1.5 Flex Sensing 16V 5p Aut." },
+        { "trim": "Advance", "version": "1.5 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 178000, "fipe": "HR-V Advance 1.5  Flex TB 16V 5p Aut." },
+        { "trim": "Touring", "version": "1.5 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 189000, "fipe": "HR-V Touring 1.5 Flex TB 16V 5p Aut." }
+      ]
+    },
+    {
+      "id": "honda-fit", "make": "Honda", "model": "Fit", "bodyType": "hatch", "doors": 4, "count": 2, "years": [2017, 2021],
+      "fipeBrand": "25", "commons": ["Category:Honda Fit (3rd generation)"],
+      "trims": [
+        { "trim": "LX", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 82000, "fipe": "Fit LX 1.5 Flexone 16V 5p Aut." },
+        { "trim": "EXL", "version": "1.5 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 95000, "fipe": "Fit EXL 1.5 Flex/Flexone 16V 5p Aut" }
+      ]
+    },
+    {
+      "id": "jeep-renegade", "make": "Jeep", "model": "Renegade", "bodyType": "suv", "doors": 4, "count": 5, "years": [2019, 2025],
+      "fipeBrand": "29", "commons": ["Category:Jeep Renegade"],
+      "trims": [
+        { "trim": "Sport", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 128000, "fipe": "Renegade Sport T270 1.3 TB 4x2 Flex Aut." },
+        { "trim": "Longitude", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 142000, "fipe": "Renegade Longitude T270 1.3 Turbo 4x2 Aut." },
+        { "trim": "Longitude", "version": "1.8 AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 118000, "fipe": "Renegade Longitude 1.8 4x2 Flex 16V Aut." },
+        { "trim": "Trailhawk", "version": "2.0 Turbo Diesel 4x4 AT9", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 176000, "fipe": "Renegade Trailhawk 2.0 4x4 TB Diesel Aut" }
+      ]
+    },
+    {
+      "id": "jeep-compass", "make": "Jeep", "model": "Compass", "bodyType": "suv", "doors": 4, "count": 6, "years": [2018, 2025],
+      "fipeBrand": "29", "commons": ["Category:Jeep Compass (MP)"],
+      "trims": [
+        { "trim": "Sport", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 168000, "fipe": "COMPASS SPORT T270 1.3 TB 4x2 Flex Aut." },
+        { "trim": "Longitude", "version": "2.0 AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 152000, "fipe": "COMPASS LONGITUDE 2.0 4x2 Flex 16V Aut." },
+        { "trim": "Limited", "version": "1.3 Turbo AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 198000, "fipe": "COMPASS LIMITED T270 1.3 TB 4x2 Flex Aut" },
+        { "trim": "Trailhawk", "version": "2.0 Turbo Diesel 4x4 AT9", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 235000, "fipe": "COMPASS TRAILHAWK 2.0 4x4 Dies. 16V Aut." }
+      ]
+    },
+    {
+      "id": "jeep-commander", "make": "Jeep", "model": "Commander", "bodyType": "suv", "doors": 4, "count": 2, "years": [2022, 2025],
+      "fipeBrand": "29", "commons": ["Category:Jeep Commander (H6)", "Category:Jeep Commander (2021)"],
+      "trims": [
+        { "trim": "Limited", "version": "1.3 Turbo AT6 7 lugares", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 228000, "fipe": "Commander Limited T270 1.3 TB Flex Aut." },
+        { "trim": "Overland", "version": "2.0 Turbo Diesel 4x4 AT9 7 lugares", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 289000, "fipe": "Commander Overl. TD380 2.0 4x4 Die. Aut." }
+      ]
+    },
+    {
+      "id": "nissan-kicks", "make": "Nissan", "model": "Kicks", "bodyType": "suv", "doors": 4, "count": 5, "years": [2018, 2025],
+      "fipeBrand": "43", "commons": ["Category:Nissan Kicks (P15)", "Category:Nissan Kicks"],
+      "trims": [
+        { "trim": "Sense", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 112000, "fipe": "KICKS Sense 1.6 16V Flex Aut." },
+        { "trim": "Advance", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 124000, "fipe": "KICKS Advance 1.6 16V Flex Aut." },
+        { "trim": "Exclusive", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 135000, "fipe": "KICKS Exclusive 1.6 16V Flex Aut." },
+        { "trim": "SV", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 105000, "fipe": "KICKS SV 1.6 16V FlexStar 5p Aut." }
+      ]
+    },
+    {
+      "id": "nissan-versa", "make": "Nissan", "model": "Versa", "bodyType": "sedan", "doors": 4, "count": 2, "years": [2021, 2025],
+      "fipeBrand": "43", "commons": ["Category:Nissan Versa (N18)", "Category:Nissan Versa"],
+      "trims": [
+        { "trim": "Sense", "version": "1.6 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 98000, "fipe": "VERSA Sense 1.6 16V Flex Mec." },
+        { "trim": "Exclusive", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 124000, "fipe": "VERSA Exclusive 1.6 16V Flex Aut." }
+      ]
+    },
+    {
+      "id": "nissan-frontier", "make": "Nissan", "model": "Frontier", "bodyType": "pickup", "doors": 4, "count": 2, "years": [2018, 2024],
+      "fipeBrand": "43", "commons": ["Category:Nissan Navara (D23)"],
+      "trims": [
+        { "trim": "LE", "version": "2.3 Biturbo Diesel 4x4 AT7", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 285000, "fipe": "Frontier LE CD 4x4 2.3 Bi-TB Diesel Aut." },
+        { "trim": "Attack", "version": "2.5 Turbo Diesel 4x4 AT7", "transmission": "automatic", "fuel": "diesel", "tier": 2, "priceNew": 235000, "fipe": "Frontier LE ATTACK CD 4x4 2.5 TB Die.Aut" }
+      ]
+    },
+    {
+      "id": "renault-kwid", "make": "Renault", "model": "Kwid", "bodyType": "hatch", "doors": 4, "count": 3, "years": [2019, 2025],
+      "fipeBrand": "48", "commons": ["Category:Renault Kwid"],
+      "trims": [
+        { "trim": "Zen", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 69000, "fipe": "KWID Zen 1.0 Flex 12V 5p Mec." },
+        { "trim": "Intense", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 2, "priceNew": 75000, "fipe": "KWID Intense 1.0 Flex 12V 5p Mec." },
+        { "trim": "E-Tech", "version": "Elétrico 65 cv", "transmission": "automatic", "fuel": "electric", "tier": 3, "priceNew": 99000, "fipe": "KWID E-Tech Techno" }
+      ]
+    },
+    {
+      "id": "renault-sandero", "make": "Renault", "model": "Sandero", "bodyType": "hatch", "doors": 4, "count": 2, "years": [2018, 2022],
+      "fipeBrand": "48", "commons": ["Category:Renault Sandero (Brazil)", "Category:Dacia Sandero II"],
+      "trims": [
+        { "trim": "Zen", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 74000, "fipe": "SANDERO Zen Flex 1.0 12V 5p Mec." },
+        { "trim": "Stepway", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 92000 }
+      ]
+    },
+    {
+      "id": "renault-duster", "make": "Renault", "model": "Duster", "bodyType": "suv", "doors": 4, "count": 3, "years": [2021, 2025],
+      "fipeBrand": "48", "commons": ["Category:Dacia Duster II", "Category:Renault Duster"],
+      "trims": [
+        { "trim": "Intense", "version": "1.6 CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 118000, "fipe": "DUSTER Intense 1.6 16V Flex Aut." },
+        { "trim": "Iconic", "version": "1.3 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 142000, "fipe": "DUSTER Iconic 1.3 TB 16V Flex Aut." }
+      ]
+    },
+    {
+      "id": "ford-ranger", "make": "Ford", "model": "Ranger", "bodyType": "pickup", "doors": 4, "count": 3, "years": [2019, 2025],
+      "fipeBrand": "22", "commons": ["Category:Ford Ranger (T6)", "Category:Ford Ranger (2022)"],
+      "trims": [
+        { "trim": "XLS", "version": "2.2 Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 1, "priceNew": 225000, "fipe": "Ranger XLS 2.2 4x4 CD Diesel Aut." },
+        { "trim": "Limited", "version": "3.0 V6 Diesel 4x4 AT10", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 330000, "fipe": "Ranger Limited 3.0 V6 4x4 CD TB Die. Aut" }
+      ]
+    },
+    {
+      "id": "ford-ecosport", "make": "Ford", "model": "EcoSport", "bodyType": "suv", "doors": 4, "count": 2, "years": [2018, 2021],
+      "fipeBrand": "22", "commons": ["Category:Ford EcoSport (2nd generation)"],
+      "trims": [
+        { "trim": "SE", "version": "1.5 AT6", "transmission": "automatic", "fuel": "flex", "tier": 1, "priceNew": 98000, "fipe": "EcoSport SE 1.5 12V Flex 5p Aut." },
+        { "trim": "FreeStyle", "version": "1.5 AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 105000, "fipe": "EcoSport FREESTYLE 1.5 12V Flex 5p Aut." }
+      ]
+    },
+    {
+      "id": "ford-mustang", "make": "Ford", "model": "Mustang", "bodyType": "coupe", "doors": 2, "count": 1, "years": [2018, 2023],
+      "fipeBrand": "22", "commons": ["Category:Ford Mustang VI"],
+      "trims": [
+        { "trim": "GT Premium", "version": "5.0 V8 AT10", "transmission": "automatic", "fuel": "gasoline", "tier": 3, "priceNew": 520000, "fipe": "Mustang GT Premium 5.0 V8" }
+      ]
+    },
+    {
+      "id": "peugeot-208", "make": "Peugeot", "model": "208", "bodyType": "hatch", "doors": 4, "count": 3, "years": [2021, 2025],
+      "fipeBrand": "44", "commons": ["Category:Peugeot 208 B"],
+      "trims": [
+        { "trim": "Active", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 88000, "fipe": "208 Active 1.0 Flex 5p Mec." },
+        { "trim": "Allure", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 112000, "fipe": "208 Allure 1.0 Turbo 200 5p Aut." },
+        { "trim": "GT", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 126000 }
+      ]
+    },
+    {
+      "id": "peugeot-2008", "make": "Peugeot", "model": "2008", "bodyType": "suv", "doors": 4, "count": 2, "years": [2024, 2025],
+      "fipeBrand": "44", "commons": ["Category:Peugeot 2008 B"],
+      "trims": [
+        { "trim": "Allure", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 142000, "fipe": "2008 Allure 1.0 Turbo 200 5p Aut." },
+        { "trim": "GT", "version": "1.0 Turbo CVT", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 156000, "fipe": "2008 GT 1.0 Turbo 200 5p Aut." }
+      ]
+    },
+    {
+      "id": "citroen-c3", "make": "Citroën", "model": "C3", "bodyType": "hatch", "doors": 4, "count": 2, "years": [2023, 2025],
+      "fipeBrand": "13", "commons": ["Category:Citroën C3 (India and Latin America)"],
+      "trims": [
+        { "trim": "Live", "version": "1.0 MT5", "transmission": "manual", "fuel": "flex", "tier": 1, "priceNew": 78000, "fipe": "C3 Live 1.0 Flex 6V 5p Mec." },
+        { "trim": "Feel Pack", "version": "1.6 AT6", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 95000, "fipe": "C3 Feel Pack 1.6 Flex 16V 5p Aut." }
+      ]
+    },
+    {
+      "id": "mitsubishi-l200-triton", "make": "Mitsubishi", "model": "L200 Triton", "bodyType": "pickup", "doors": 4, "count": 2, "years": [2019, 2024],
+      "fipeBrand": "41", "commons": ["Category:Mitsubishi L200/Triton (Brazil)", "Category:Mitsubishi Triton (2015)"],
+      "trims": [
+        { "trim": "Sport HPE", "version": "2.4 Diesel 4x4 AT6", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 285000, "fipe": "L200 Triton Sport HPE 2.4 CD Diesel Aut." },
+        { "trim": "Sport GLS", "version": "2.4 Diesel 4x4 MT6", "transmission": "manual", "fuel": "diesel", "tier": 2, "priceNew": 245000, "fipe": "L200 Triton Sport GLS 2.4 CD Diesel Mec." }
+      ]
+    },
+    {
+      "id": "bmw-320i", "make": "BMW", "model": "320i", "bodyType": "sedan", "doors": 4, "count": 2, "years": [2020, 2025],
+      "fipeBrand": "7", "commons": ["Category:BMW G20"],
+      "trims": [
+        { "trim": "M Sport", "version": "2.0 Turbo AT8", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 345000, "fipe": "320iA 2.0 TB M Sport A.Flex/M.Sport 4p" },
+        { "trim": "Sport GP", "version": "2.0 Turbo AT8", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 315000 }
+      ]
+    },
+    {
+      "id": "bmw-x1", "make": "BMW", "model": "X1", "bodyType": "suv", "doors": 4, "count": 2, "years": [2020, 2025],
+      "fipeBrand": "7", "commons": ["Category:BMW F48", "Category:BMW U11"],
+      "trims": [
+        { "trim": "sDrive20i X-Line", "version": "2.0 Turbo AT8", "transmission": "automatic", "fuel": "flex", "tier": 2, "priceNew": 315000, "fipe": "X1 SDRIVE 20i X-Line 2.0 TB Active Flex" },
+        { "trim": "sDrive20i M Sport", "version": "2.0 Turbo DCT7", "transmission": "automatic", "fuel": "gasoline", "tier": 3, "priceNew": 365000, "fipe": "X1 SDRIVE 20i M Sport 2.0 TB Aut." }
+      ]
+    },
+    {
+      "id": "mercedes-c200", "make": "Mercedes-Benz", "model": "C 200", "bodyType": "sedan", "doors": 4, "count": 1, "years": [2022, 2025],
+      "fipeBrand": "39", "commons": ["Category:Mercedes-Benz W206"],
+      "trims": [
+        { "trim": "AMG Line", "version": "1.5 Turbo EQ Boost AT9", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 380000, "fipe": "C-200 AMG Line EQ Boost 1.5 TB (Hib.)" }
+      ]
+    },
+    {
+      "id": "audi-a3-sedan", "make": "Audi", "model": "A3 Sedan", "bodyType": "sedan", "doors": 4, "count": 1, "years": [2018, 2020],
+      "fipeBrand": "6", "commons": ["Category:Audi A3 sedans"],
+      "trims": [
+        { "trim": "Prestige Plus", "version": "1.4 TFSI AT6", "transmission": "automatic", "fuel": "flex", "tier": 3, "priceNew": 185000, "fipe": "A3 Sedan Prestige Plus 1.4 TFSI Flex Tip" }
+      ]
+    },
+    {
+      "id": "volvo-xc40", "make": "Volvo", "model": "XC40", "bodyType": "suv", "doors": 4, "count": 2, "years": [2021, 2025],
+      "commons": ["Category:Volvo XC40"],
+      "trims": [
+        { "trim": "T5 R-Design", "version": "2.0 Turbo AT8", "transmission": "automatic", "fuel": "gasoline", "tier": 3, "priceNew": 285000 },
+        { "trim": "Recharge", "version": "Elétrico 408 cv AWD", "transmission": "automatic", "fuel": "electric", "tier": 3, "priceNew": 365000 }
+      ]
+    },
+    {
+      "id": "byd-dolphin", "make": "BYD", "model": "Dolphin", "bodyType": "hatch", "doors": 4, "count": 2, "years": [2023, 2025],
+      "fipeBrand": "238", "commons": ["Category:BYD Dolphin"],
+      "trims": [
+        { "trim": "GS", "version": "Elétrico 95 cv", "transmission": "automatic", "fuel": "electric", "tier": 2, "priceNew": 149000, "fipe": "Dolphin EV GS (Elétrico)" },
+        { "trim": "Plus", "version": "Elétrico 204 cv", "transmission": "automatic", "fuel": "electric", "tier": 3, "priceNew": 179000, "fipe": "Dolphin Plus (Elétrico)" }
+      ]
+    },
+    {
+      "id": "byd-song-plus", "make": "BYD", "model": "Song Plus", "bodyType": "suv", "doors": 4, "count": 1, "years": [2023, 2025],
+      "fipeBrand": "238", "commons": ["Category:BYD Song Plus DM-i", "Category:BYD Song Plus"],
+      "trims": [
+        { "trim": "DM-i", "version": "1.5 Hybrid plug-in e-CVT", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 239000, "fipe": "Song Plus 1.5 16V Aut. (Hibrido)" }
+      ]
+    },
+    {
+      "id": "caoa-chery-tiggo-7", "make": "Caoa Chery", "model": "Tiggo 7", "bodyType": "suv", "doors": 4, "count": 2, "years": [2021, 2025],
+      "fipeBrand": "245", "commons": ["Category:Chery Tiggo 7 Pro", "Category:Chery Tiggo 7"],
+      "trims": [
+        { "trim": "Pro", "version": "1.6 Turbo DCT7", "transmission": "automatic", "fuel": "gasoline", "tier": 2, "priceNew": 165000, "fipe": "Tiggo 7 Pro 1.6 Turbo 16V Aut." },
+        { "trim": "Pro Hybrid", "version": "1.5 Turbo Hybrid CVT", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 189000, "fipe": "Tiggo 7 PRO 1.5 Turbo (Híbrido)" }
+      ]
+    },
+    {
+      "id": "kia-sportage", "make": "Kia", "model": "Sportage", "bodyType": "suv", "doors": 4, "count": 1, "years": [2023, 2025],
+      "fipeBrand": "31", "commons": ["Category:Kia Sportage (NQ5)"],
+      "trims": [
+        { "trim": "EX Hybrid", "version": "1.6 Turbo Hybrid AT6", "transmission": "automatic", "fuel": "hybrid", "tier": 3, "priceNew": 255000, "fipe": "Sportage EX 1.6 T-GDI (Híbrido)" }
+      ]
+    },
+    {
+      "id": "ram-rampage", "make": "RAM", "model": "Rampage", "bodyType": "pickup", "doors": 4, "count": 1, "years": [2024, 2025],
+      "fipeBrand": "185", "commons": ["Category:Ram Rampage (2023)", "Category:Ram Rampage"],
+      "trims": [
+        { "trim": "Rebel", "version": "2.2 Turbo Diesel 4x4 AT9", "transmission": "automatic", "fuel": "diesel", "tier": 3, "priceNew": 265000, "fipe": "RAMPAGE REBEL 2.2 TB CD 4X4 Diesel Aut." }
+      ]
+    }
+  ]
+}

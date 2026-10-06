@@ -8,7 +8,10 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "assets:extract": "node scripts/extract-figma-assets.mjs"
+    "assets:extract": "node scripts/extract-figma-assets.mjs",
+    "data:fipe": "node scripts/vehicles/fetch-fipe.mjs",
+    "data:photos": "node scripts/vehicles/fetch-photos.mjs",
+    "data:generate": "node scripts/vehicles/generate.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
@@ -20,6 +23,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "kiwi-schema": "^0.5.0",
+    "sharp": "^0.35.5",
     "typescript": "^7.0.2",
     "vite": "^8.3.2",
     "vite-plugin-svgr": "^5.2.0"
