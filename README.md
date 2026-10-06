@@ -6,7 +6,7 @@ The product connects browsing, refinement, vehicle evaluation, value and risk si
 
 The experience originally started as a product design case and is now being developed here as a working product. From this point on, the repository is about implementing the final experience rather than documenting the exercise that started it.
 
-> **status:** the listing works on desktop and mobile (search, filters, sorting, applied filters, loading, empty state, load more) over a local dataset. The vehicle page only has its way back to the results so far; the next step comes after it.
+> **status:** the listing and the vehicle page work on desktop and mobile over a local dataset: search, filters, sorting, load more, then gallery, price against FIPE, evidence, details, similar vehicles and the way back to the same results. The next step only has a placeholder page so far.
 
 ## product baseline
 
@@ -114,7 +114,8 @@ src/
   components/               one folder per visual system component (Button, Select,
                             Vehicle / Card…), named after it
   listing/                  the listing page, its filters and its state
-  vehicle/                  the vehicle page
+  vehicle/                  the vehicle page, its gallery and similar vehicles
+  nextStep/                 the next step (a placeholder for now)
   lib/                      router, formatting, small hooks
   assets/
     brand/                  Marés lockups, extracted from the Figma file
@@ -140,6 +141,10 @@ There is no backend yet. The app reads a local dataset of 180 vehicles generated
 The listing keeps its whole exploration state in the URL: search text, filters, sort and how many results are showing (`/?busca=civic&preco=ate-150000&cambio=automatico&mostrar=24`). Fields, chips, counts and cards all read that one state, so opening a vehicle and coming back, or reloading, finds the same exploration. Refining the listing replaces the current history entry instead of adding one, so "back" leaves the listing instead of undoing filters. The mobile sheet and the desktop "mais filtros" drawer edit a draft that only becomes state when applied.
 
 Results are computed locally and shown after a short delay (`useListing.ts`), so the loading state exists before there's a backend. A result set that was already shown comes back immediately.
+
+A vehicle page (`/veiculos/v014`) knows which exploration it came from through history state (`src/vehicle/exploration.ts`): the listing's query string and how many pages away it is. "Voltar para N veículos" goes back that many entries, so the listing returns exactly as it was, scroll included, even after opening a few similar vehicles. Opened directly, with no listing behind it, the page counts the whole stock and goes to `/`. The similar vehicles are the other results of that same exploration, closest in price first.
+
+The next step is a page of its own, `/veiculos/v014/proximo-passo`, with the intent in the query when a shortcut picked one (`?intencao=troca`, `?intencao=financiamento`). As a route, it keeps the vehicle and intent on reload and works with the browser's back button.
 
 ### tokens
 
