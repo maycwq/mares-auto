@@ -38,6 +38,7 @@ When one of the open points below is decided, move it to the decided list. When 
 ### price and FIPE
 
 - **"R$ X abaixo da FIPE"** below the reference, **"R$ X acima da FIPE"** above it, and **"na média da FIPE"** when the price matches it exactly.
+- On the vehicle page the sentence keeps V1's ending with the reference value: "R$ 2.210 abaixo da FIPE de R$ 151.200", "… acima da FIPE de R$ …", "na média da FIPE de R$ …". It appears on desktop only, as in V1. The "FIPE · R$ …" line shows on both breakpoints.
 - The line only disappears when there is no FIPE value.
 
 ### evidence
@@ -66,13 +67,24 @@ When one of the open points below is decided, move it to the decided list. When 
 
 - **Two artifacts in the file are ignored:** the shifted header navigation in D3 and the centered radio labels in N5.
 
+### vehicle page
+
+- **Opened directly, the way back leads to the whole stock.** With no listing behind the page, it says "Voltar para 180 veículos" and goes to the listing without filters.
+- **Similar vehicles come from the same exploration.** They're the other results of the search and filters that led to the vehicle, closest in price first: three on desktop, two on narrow screens (V1, V2). With no other results, the section keeps only the way back.
+- **"Seus filtros continuam aplicados." only appears when filters are applied**, and "ou veja opções semelhantes" only when there are similar vehicles.
+- **Evidence isn't repeated just for symmetry.** The badge is the one the listing card shows. The summary adds up to two other items, the first one highlighted; on narrow screens it keeps only that one. "O que já dá para conferir" lists everything on desktop and only the rest on narrow screens (V1 vs V2). With no evidence, the section goes away.
+- **The condition text only says what the data supports:** laudo, IPVA and revisões. "Sem pendências informadas no anúncio" isn't shown, because the dataset has nothing that backs it. The text is the same on every breakpoint and wraps.
+- **"Itens e conforto" lists the vehicle's items separated by "·".**
+- **Thumbnails stay in one row and scroll sideways** when there are more photos than fit. Every photo stays reachable and the row keeps the design's geometry.
+- **One photo: no thumbnails**, since there's nothing to choose; the counter stays ("1 / 1"). **No photo:** "foto indisponível", no counter and no overlay.
+- **The gallery overlay is for narrow screens only (V3).** Tapping the photo opens it. On desktop the photo is already large and the design shows no overlay.
+- **The next step is its own page:** `/veiculos/:id/proximo-passo`, with the intent in the query when a shortcut picked one. It keeps vehicle and intent on reload and works with the browser's back button.
+- **The footer appears on the desktop vehicle page only**, as in V1.
+
 ## still open
 
 Each one gets decided when the feature that needs it is built, starting from the simplest option that keeps the specified product.
 
 - **Removing a filter from its chip.** It isn't specified, and it shouldn't be added just because other products do it.
-- **Next step as a route, modal or panel.** This is an implementation choice, made on accessibility, navigation and state preservation.
 - **Contact, visit and trade-in intents.** Financing is the only detailed flow. The other three keep vehicle + intent, and no form is invented for them.
-- **Opening a vehicle directly.** What "Voltar para resultados" shows when there was no previous search.
-- **Gallery beyond the visible thumbnails.** Vehicles can have more photos than the thumbnail row shows.
 - **"Lojas" and "Atendimento" in the header**, and a footer on mobile screens.
