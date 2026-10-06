@@ -2,6 +2,7 @@ import { useEffect, useMemo, type MouseEvent, type ReactNode } from 'react';
 import { Brand } from '../components/Brand/Brand';
 import { buttonClassName } from '../components/Button/Button';
 import { Disclosure } from '../components/Disclosure/Disclosure';
+import { InfoTip } from '../components/InfoTip/InfoTip';
 import { NavigationHeader } from '../components/NavigationHeader/NavigationHeader';
 import { StatusBadge } from '../components/StatusBadge/StatusBadge';
 import { TextLink } from '../components/TextLink/TextLink';
@@ -11,7 +12,7 @@ import { VehicleCard } from '../components/VehicleCard/VehicleCard';
 import { VehiclePrice } from '../components/VehiclePrice/VehiclePrice';
 import { vehicles } from '../data/vehicles';
 import { cx } from '../lib/cx';
-import { formatKm, formatNumber } from '../lib/format';
+import { formatKm, formatNumber, formatPrice } from '../lib/format';
 import { Link, useRouter } from '../lib/router';
 import {
   colorLabel,
@@ -54,7 +55,11 @@ export function VehiclePage({ id }: { id: string }) {
 
   if (!vehicle) return null;
 
-  const backLabel = `Voltar para ${vehicleCount(results.length)}`;
+  // Only "voltar" when there is a listing to go back to. Opened directly, the person was
+  // never there, so the same link offers the whole stock instead.
+  const backLabel = exploration
+    ? `Voltar para ${vehicleCount(results.length)}`
+    : `Ver todos os ${vehicleCount(results.length)}`;
   const backHref = `/${listingSearch}`;
   const goBack = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -68,12 +73,15 @@ export function VehiclePage({ id }: { id: string }) {
   const onward = furtherExploration(exploration);
   const nextStep = (intent?: string) => `/veiculos/${vehicle.id}/proximo-passo${intent ? `?intencao=${intent}` : ''}`;
 
-  // Evidence. The badge is the same one the listing card shows. The summary adds up to two
-  // more, led by a highlighted one; on narrow screens it keeps only that lead, and the
-  // trust section below lists the rest instead of repeating it (V1 vs V2).
+  // Evidence. What gets featured is decided in the data: the badge is the listing card's
+  // featuredEvidence, and the summary lists summaryEvidence below it, the first one
+  // highlighted. Narrow screens keep only that first one in the summary, and the trust
+  // section lists everything else, so both breakpoints carry the same evidence (V1, V2).
   const badge = featuredEvidenceLabel(vehicle);
   const evidence = shownEvidence(vehicle);
-  const summaryEvidence = evidence.filter((item) => item.type !== vehicle.featuredEvidence).slice(0, 2);
+  const summaryEvidence = (vehicle.summaryEvidence ?? [])
+    .map((type) => evidence.find((item) => item.type === type))
+    .filter((item) => item !== undefined);
   const lead = summaryEvidence[0];
   const trustOnWideOnly = evidence.every((item) => item === lead);
 
@@ -87,7 +95,7 @@ export function VehiclePage({ id }: { id: string }) {
       <main className={cx('container', styles.main)}>
         <div className={styles.context}>
           <TextLink href={backHref} onClick={goBack}>
-            ← {backLabel}
+            {exploration ? `← ${backLabel}` : backLabel}
           </TextLink>
           {filters.map((label) => (
             <StatusBadge key={label} label={label} className={styles.wideOnly} />
@@ -113,8 +121,22 @@ export function VehiclePage({ id }: { id: string }) {
               ))}
             </dl>
             <hr className={cx(styles.divider, styles.wideOnly)} />
-            <VehiclePrice price={vehicle.price} reference={vehicle.fipe?.value} context="detail" />
-            {vehicle.fipe && <p className={cx(styles.priceNote, styles.wideOnly)}>{fipeComparison(vehicle)}</p>}
+            <div className={styles.priceGroup}>
+              {/* First mention of the Tabela FIPE on the page: full name and a short explanation. */}
+              <VehiclePrice
+                price={vehicle.price}
+                context="detail"
+                reference={
+                  vehicle.fipe && (
+                    <>
+                      Tabela FIPE: {formatPrice(vehicle.fipe.value)}
+                      <InfoTip label="O que é a Tabela FIPE?">referência de preço médio de veículos no Brasil</InfoTip>
+                    </>
+                  )
+                }
+              />
+              {vehicle.fipe && <p className={styles.priceNote}>{fipeComparison(vehicle)}</p>}
+            </div>
             {summaryEvidence.length > 0 && (
               <ul className={styles.summaryEvidence}>
                 {summaryEvidence.map((item) => (
@@ -213,7 +235,7 @@ export function VehiclePage({ id }: { id: string }) {
               <h2 id="similar-title" className={styles.sectionTitle}>
                 Ainda comparando?
               </h2>
-              <SimilarText filtered={filters.length > 0} hasSimilar={similar.length > 0} />
+              {exploration && <SimilarText filtered={filters.length > 0} hasSimilar={similar.length > 0} />}
             </div>
             <a href={backHref} onClick={goBack} className={buttonClassName('secondary', 'md', styles.similarBack)}>
               {backLabel}
@@ -265,7 +287,8 @@ function CommercialShortcut({ to, state, title, children }: CommercialShortcutPr
 }
 
 // "Seus filtros continuam aplicados" only when there are filters, and the similar options
-// are only mentioned when there are some. Mobile keeps the first sentence (V2).
+// are only mentioned when there are some. Mobile keeps the first sentence (V2). Without a
+// listing behind the page there are no results to go back to, so there is no text.
 function SimilarText({ filtered, hasSimilar }: { filtered: boolean; hasSimilar: boolean }) {
   const resume = hasSimilar ? 'Volte aos resultados ou veja opções semelhantes.' : 'Volte aos resultados.';
   return (

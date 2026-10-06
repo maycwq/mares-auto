@@ -1,5 +1,5 @@
 // How vehicle data reads in the interface. Copy follows the Figma file.
-import { stores, type Color, type Evidence, type Fuel, type Transmission, type Vehicle } from '../data/vehicles';
+import { stores, type Color, type Evidence, type Fuel, type ShownEvidenceType, type Transmission, type Vehicle } from '../data/vehicles';
 import { formatList, formatMonthName, formatMonthYear, formatPrice, plural } from './format';
 
 export const fuelLabel: Record<Fuel, string> = {
@@ -39,13 +39,13 @@ export const storeName = (storeId: string) => stores.find((store) => store.id ==
 // "seminovo · Marés Centro": the store name loses its own separator inside the eyebrow.
 export const vehicleEyebrow = (vehicle: Vehicle) => `seminovo · ${storeName(vehicle.storeId).replace(' · ', ' ')}`;
 
-// "R$ 2.210 abaixo da FIPE de R$ 151.200". Undefined without a FIPE value.
+// "R$ 2.210 abaixo da Tabela FIPE". Undefined without a FIPE value. It's a comparison
+// with one specific reference, so an exact match is "no valor", not "na média".
 export function fipeComparison(vehicle: Vehicle) {
   if (!vehicle.fipe) return undefined;
-  const reference = formatPrice(vehicle.fipe.value);
   const difference = vehicle.price - vehicle.fipe.value;
-  if (difference === 0) return `na média da FIPE de ${reference}`;
-  return `${formatPrice(Math.abs(difference))} ${difference < 0 ? 'abaixo' : 'acima'} da FIPE de ${reference}`;
+  if (difference === 0) return 'no valor da Tabela FIPE';
+  return `${formatPrice(Math.abs(difference))} ${difference < 0 ? 'abaixo' : 'acima'} da Tabela FIPE`;
 }
 
 // Badge text for the evidence a listing card features, when there is one.
@@ -65,11 +65,13 @@ export function featuredEvidenceLabel(vehicle: Vehicle) {
 
 // --- evidence on the vehicle page --------------------------------------------------
 
-export type ShownEvidence = Extract<Evidence, { type: 'inspection' | 'serviceHistory' | 'warranty' }>;
+export type ShownEvidence = Extract<Evidence, { type: ShownEvidenceType }>;
 
-// The design always lists them in this order: laudo, revisões, garantia. Single owner and
-// clean history stay out until they have copy of their own.
-const evidenceOrder: ShownEvidence['type'][] = ['inspection', 'serviceHistory', 'warranty'];
+// Lists of everything that can be checked follow the design's order: laudo, revisões,
+// garantia. It's an order for reading, not a priority; what gets featured comes from the
+// data (featuredEvidence, summaryEvidence). Single owner and clean history stay out until
+// they have copy of their own.
+const evidenceOrder: ShownEvidenceType[] = ['inspection', 'serviceHistory', 'warranty'];
 
 export const shownEvidence = (vehicle: Vehicle) =>
   evidenceOrder

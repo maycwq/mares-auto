@@ -73,6 +73,12 @@
   column-gap: var(--space-8);
 }
 
+.priceGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
 .priceNote {
   margin: 0;
   color: var(--color-foreground-muted);
@@ -279,7 +285,6 @@
     grid-column: span 5;
     gap: var(--space-4);
     padding: 28px var(--space-6);
-    overflow: hidden;
     border-radius: var(--radius-lg);
     background: var(--color-surface-default);
     /* The 4px accent along the top edge. */
@@ -288,8 +293,12 @@
 
   .summaryAttributes,
   .divider,
-  .priceNote {
+  .priceGroup {
     align-self: stretch;
+  }
+
+  .priceGroup {
+    gap: var(--space-4);
   }
 
   .cta {

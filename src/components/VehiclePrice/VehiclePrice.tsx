@@ -1,11 +1,13 @@
+import type { ReactNode } from 'react';
 import { cx } from '../../lib/cx';
 import { formatPrice } from '../../lib/format';
 import styles from './VehiclePrice.module.css';
 
 type VehiclePriceProps = {
   price: number;
-  // FIPE value; the reference line only exists when there is one.
-  reference?: number;
+  // The reference line ("FIPE · R$ 151.200"), only when there is a reference value. Its
+  // wording depends on where the price is shown, so the caller writes it.
+  reference?: ReactNode;
   context?: 'card' | 'detail';
 };
 
@@ -15,7 +17,7 @@ export function VehiclePrice({ price, reference, context = 'card' }: VehiclePric
   return (
     <div className={cx(styles.price, context === 'detail' && styles.detail)}>
       <p className={styles.value}>{formatPrice(price)}</p>
-      {reference !== undefined && <p className={styles.reference}>FIPE · {formatPrice(reference)}</p>}
+      {reference && <p className={styles.reference}>{reference}</p>}
     </div>
   );
 }

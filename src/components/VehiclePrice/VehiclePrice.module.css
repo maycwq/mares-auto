@@ -11,6 +11,10 @@
 }
 
 .reference {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
   margin: 0;
   color: var(--color-foreground-muted);
   font: var(--type-caption);

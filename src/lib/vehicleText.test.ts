@@ -20,10 +20,10 @@ const base: Vehicle = {
 const withFipe = (value: number) => ({ ...base, fipe: { value, code: '000000-0', referenceMonth: 'outubro de 2026' } });
 
 describe('fipeComparison', () => {
-  it('says how far below, above or at the reference the price is', () => {
-    expect(fipeComparison(withFipe(151200))).toBe('R$\u00a02.210 abaixo da FIPE de R$\u00a0151.200');
-    expect(fipeComparison(withFipe(140000))).toBe('R$ 8.990 acima da FIPE de R$ 140.000');
-    expect(fipeComparison(withFipe(148990))).toBe('na média da FIPE de R$ 148.990');
+  it('says how far below, above or at the Tabela FIPE the price is', () => {
+    expect(fipeComparison(withFipe(151200))).toBe('R$\u00a02.210 abaixo da Tabela FIPE');
+    expect(fipeComparison(withFipe(140000))).toBe('R$\u00a08.990 acima da Tabela FIPE');
+    expect(fipeComparison(withFipe(148990))).toBe('no valor da Tabela FIPE');
   });
 
   it('has nothing to say without FIPE', () => {

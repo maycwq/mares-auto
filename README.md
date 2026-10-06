@@ -142,7 +142,7 @@ The listing keeps its whole exploration state in the URL: search text, filters, 
 
 Results are computed locally and shown after a short delay (`useListing.ts`), so the loading state exists before there's a backend. A result set that was already shown comes back immediately.
 
-A vehicle page (`/veiculos/v014`) knows which exploration it came from through history state (`src/vehicle/exploration.ts`): the listing's query string and how many pages away it is. "Voltar para N veículos" goes back that many entries, so the listing returns exactly as it was, scroll included, even after opening a few similar vehicles. Opened directly, with no listing behind it, the page counts the whole stock and goes to `/`. The similar vehicles are the other results of that same exploration, closest in price first.
+A vehicle page (`/veiculos/v014`) knows which exploration it came from through history state (`src/vehicle/exploration.ts`): the listing's query string and how many pages away it is. "Voltar para N veículos" goes back that many entries, so the listing returns exactly as it was, scroll included, even after opening a few similar vehicles. Opened directly, with no listing behind it, the link offers the whole stock instead ("Ver todos os 180 veículos") and goes to `/`. The similar vehicles come from that same exploration (or the whole stock), ranked by a few plain criteria in turn: same model, same body type, closest price, closest year (`similarVehicles.ts`).
 
 The next step is a page of its own, `/veiculos/v014/proximo-passo`, with the intent in the query when a shortcut picked one (`?intencao=troca`, `?intencao=financiamento`). As a route, it keeps the vehicle and intent on reload and works with the browser's back button.
 

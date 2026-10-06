@@ -1,5 +1,5 @@
 import type { Vehicle } from '../../data/vehicles';
-import { formatKm } from '../../lib/format';
+import { formatKm, formatPrice } from '../../lib/format';
 import { Link } from '../../lib/router';
 import { featuredEvidenceLabel, fuelLabel, storeName, transmissionLabel, vehicleTitle, vehicleVersion } from '../../lib/vehicleText';
 import { StatusBadge } from '../StatusBadge/StatusBadge';
@@ -44,7 +44,7 @@ export function VehicleCard({ vehicle, href, linkState }: VehicleCardProps) {
             <VehicleAttribute key={attribute.label} label={attribute.label} value={attribute.value} />
           ))}
         </dl>
-        <VehiclePrice price={vehicle.price} reference={vehicle.fipe?.value} />
+        <VehiclePrice price={vehicle.price} reference={vehicle.fipe && `FIPE · ${formatPrice(vehicle.fipe.value)}`} />
         <p className={styles.store}>{storeName(vehicle.storeId)}</p>
       </div>
     </article>
