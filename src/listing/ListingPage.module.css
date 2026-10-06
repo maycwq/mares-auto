@@ -1,5 +1,6 @@
 /* Mobile first: 390 px reference. The desktop composition starts at 1024 px. */
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
@@ -126,6 +127,38 @@
   letter-spacing: var(--type-heading-sm-tracking);
 }
 
+.resultsTitle:focus {
+  outline: none;
+}
+
+/* The host keeps the previous set until the next one is published and holds the inert
+   copies of cards that are leaving. */
+.resultsHost {
+  position: relative;
+  align-self: stretch;
+}
+
+.resultsMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.resultsStatus {
+  margin: 0;
+  color: var(--color-foreground-secondary);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+  animation: status-in var(--motion-micro) linear;
+}
+
+@keyframes status-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .resultsCount {
   margin: 0;
   color: var(--color-foreground-muted);
@@ -228,6 +261,12 @@
     padding: var(--space-4) var(--space-2);
     border-radius: var(--radius-lg);
     background: var(--color-action-subtle);
+  }
+
+  /* Only while the whole rail fits the window with 24px to spare above and below. */
+  .rail[data-sticky] {
+    position: sticky;
+    top: var(--space-6);
   }
 
   .railHeader {

@@ -13,11 +13,13 @@ type VehicleCardProps = {
   href: string;
   // History state for the vehicle page, e.g. which listing it was opened from.
   linkState?: Record<string, unknown>;
+  // Runs as the card is opened, before navigating (e.g. to remember the card of origin).
+  onOpen?: () => void;
 };
 
 // Vehicle / Card. Everything after the title comes from data and is left out when the
 // data isn't there; the card just gets shorter.
-export function VehicleCard({ vehicle, href, linkState }: VehicleCardProps) {
+export function VehicleCard({ vehicle, href, linkState, onOpen }: VehicleCardProps) {
   const badge = featuredEvidenceLabel(vehicle);
   const attributes = [
     { label: 'ano', value: String(vehicle.year) },
@@ -32,7 +34,7 @@ export function VehicleCard({ vehicle, href, linkState }: VehicleCardProps) {
       <div className={styles.content}>
         <div className={styles.identity}>
           <h3 className={styles.title}>
-            <Link to={href} state={linkState} className={styles.link}>
+            <Link to={href} state={linkState} className={styles.link} onClick={onOpen}>
               {vehicleTitle(vehicle)}
             </Link>
           </h3>
