@@ -1,0 +1,272 @@
+/* Mobile first: 390 px reference. The desktop composition starts at 1024 px. */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: 28px;
+  padding-bottom: var(--space-12);
+}
+
+/* --- hero ------------------------------------------------------------------ */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-action-subtle);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-action-primary);
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+}
+
+.title {
+  margin: 0;
+  font: var(--type-heading-lg);
+  letter-spacing: var(--type-heading-lg-tracking);
+}
+
+.stock {
+  margin: 0;
+  color: var(--color-foreground-secondary);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+/* --- toolbar --------------------------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sort {
+  display: none;
+}
+
+.mobileActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.mobileActions > * {
+  flex: 1;
+}
+
+.mobileSort {
+  position: relative;
+}
+
+.mobileSort:has(.mobileSortSelect:focus-visible) {
+  outline: var(--stroke-strong) solid var(--color-action-focus);
+}
+
+/* Invisible but tappable: the native picker opens from the Button-shaped label. */
+.mobileSortSelect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- content --------------------------------------------------------------- */
+
+.content {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.rail {
+  display: none;
+}
+
+.results {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.resultsHeader {
+  display: flex;
+  align-self: stretch;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  flex-wrap: wrap;
+}
+
+.resultsTitle {
+  margin: 0;
+  font: var(--type-heading-sm);
+  letter-spacing: var(--type-heading-sm-tracking);
+}
+
+.resultsCount {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.wideOnly {
+  display: none;
+}
+
+/* Cards are at least 288 px (the useful width of a 320 px screen) and the grid fits as
+   many as the results area allows: one on phones, two on tablets, three at 1440. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+  gap: var(--space-5);
+  align-self: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gridItem {
+  display: flex;
+  min-width: 0;
+}
+
+.gridItem > * {
+  flex: 1;
+}
+
+@media (min-width: 1024px) {
+  .main {
+    gap: var(--space-8);
+    padding-top: 56px;
+    padding-bottom: 80px;
+  }
+
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    min-height: 120px;
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .title {
+    font: var(--type-display);
+    letter-spacing: var(--type-display-tracking);
+  }
+
+  .stock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: none;
+    width: 220px;
+  }
+
+  .stockNumber {
+    color: var(--color-foreground-primary);
+    font: var(--type-display);
+    letter-spacing: var(--type-display-tracking);
+  }
+
+  .toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .search {
+    flex: 0 1 640px;
+  }
+
+  .sort {
+    display: flex;
+    flex: none;
+    width: 240px;
+  }
+
+  .mobileActions {
+    display: none;
+  }
+
+  .rail {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: var(--space-4);
+    width: 188px;
+    padding: var(--space-4) var(--space-2);
+    border-radius: var(--radius-lg);
+    background: var(--color-action-subtle);
+  }
+
+  .railHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .railTitle {
+    margin: 0;
+    font: var(--type-heading-sm);
+    letter-spacing: var(--type-heading-sm-tracking);
+  }
+
+  .divider {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-top: var(--stroke-default) solid var(--color-border-default);
+  }
+
+  .secondaryLabel,
+  .secondaryCaption {
+    margin: 0;
+    color: var(--color-foreground-secondary);
+    font: var(--type-caption);
+    letter-spacing: var(--type-caption-tracking);
+  }
+
+  .results {
+    gap: var(--space-5);
+  }
+
+  .grid {
+    gap: var(--space-6);
+  }
+
+  .wideOnly {
+    display: inline;
+  }
+
+  .narrowOnly {
+    display: none;
+  }
+}

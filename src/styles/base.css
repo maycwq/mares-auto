@@ -25,3 +25,18 @@ textarea {
   font: inherit;
   color: inherit;
 }
+
+/* Hidden on screen, still read by assistive technology. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The page behind an open dialog doesn't scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
