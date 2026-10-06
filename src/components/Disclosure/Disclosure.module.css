@@ -4,6 +4,7 @@
 .disclosure {
   border-block: var(--stroke-default) solid var(--color-border-default);
   background: var(--color-surface-subtle);
+  transition: background-color var(--motion-micro) linear;
 }
 
 .disclosure:has(.header:hover) {
@@ -44,24 +45,22 @@
 }
 
 .chevron {
-  transition: transform 150ms ease;
+  transition: transform var(--motion-short) var(--ease-layout);
 }
 
 .expanded .chevron {
   transform: rotate(180deg);
 }
 
-/* The header's bottom padding already spaces the body: 12px gap, 16px bottom padding. */
-.body {
+/* The header's bottom padding already spaces the body: 12px gap, 16px bottom padding.
+   The panel is what opens and closes; the body inside it fades. */
+.panel {
   margin-top: calc(var(--space-3) - var(--space-4));
+}
+
+.body {
   padding-bottom: var(--space-4);
   color: var(--color-foreground-secondary);
   font: var(--type-body-sm);
   letter-spacing: var(--type-body-sm-tracking);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .chevron {
-    transition: none;
-  }
 }

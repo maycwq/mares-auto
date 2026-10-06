@@ -39,6 +39,24 @@
   scroll-snap-align: start;
 }
 
+/* Counter and, when there's something to say, the photo's status next to it. */
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.photoStatus {
+  margin: 0;
+  color: var(--color-foreground-secondary);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+.overlay .photoStatus {
+  color: var(--color-foreground-inverse);
+}
+
 /* --- overlay (V3) -------------------------------------------------------------- */
 
 .overlay {

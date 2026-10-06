@@ -12,6 +12,8 @@
   outline: var(--stroke-default) solid var(--color-border-default);
   background: var(--color-surface-subtle);
   cursor: pointer;
+  /* Selection and hover change the existing outline's color; focus shows at once. */
+  transition: outline-color var(--motion-micro) linear;
 }
 
 .thumbnail:hover {
@@ -25,6 +27,7 @@
 
 .thumbnail:focus-visible {
   outline: var(--stroke-strong) solid var(--color-action-focus);
+  transition: none;
 }
 
 .photo {

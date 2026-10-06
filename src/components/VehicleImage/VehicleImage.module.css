@@ -32,3 +32,10 @@
 .gallery.missing {
   border-radius: var(--radius-lg);
 }
+
+/* The previous photo while the next one takes its place. */
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
