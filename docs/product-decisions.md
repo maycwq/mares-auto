@@ -24,13 +24,16 @@ When one of the open points below is decided, move it to the decided list. When 
 - **The rail keeps "Marca/modelo" and "Km"**, with full accessible names ("Marca e modelo", "Quilometragem").
 - **With filters applied, mobile has to say that a refinement is active.** "Todos" must not suggest there's no filter.
 - **Only structured filters change the titles.** With filters, the results title is "Seminovos com estes filtros" on desktop and mobile alike. Search text narrows the results and their count, but it isn't a filter, and the design has no separate copy for it, so the initial titles stay ("Todos os seminovos", "Todos").
-- **The hero follows the filters, as in D2 and M3.** It shows the stock ("180 veículos disponíveis"), or the vehicles matching the filters: "N veículos com estes filtros" on desktop, "N veículos encontrados" on mobile.
+- **The big number in the hero is always the current result set.** Search, filters and both narrow it, and with no refinement it's the whole stock. Only the words around it follow the state, as in D1, D2 and M3:
+  - no refinement: "180 veículos disponíveis";
+  - with filters (with or without search): "N veículos com estes filtros" on desktop, "N veículos encontrados" on mobile;
+  - search only: "N veículos encontrados" on both.
 - **Composition differences are allowed.** The FIPE note, the active filters next to "voltar" and repeated evidence can differ between desktop and mobile. The information and state they carry stay available when needed, but nothing is duplicated just for symmetry.
 
 ### load more
 
 - **"Ver mais veículos" while the action is still incremental.**
-- **"Ver os N veículos" only when the click reveals everything that's left.** N is what it reveals, not the total of results.
+- **"Ver os N veículos" only when the click reveals everything that's left.** N is what it reveals, not the total of results. With one left, it's "Ver 1 veículo".
 
 ### price and FIPE
 
