@@ -44,7 +44,8 @@ export function VehicleCard({ vehicle, href, linkState }: VehicleCardProps) {
             <VehicleAttribute key={attribute.label} label={attribute.label} value={attribute.value} />
           ))}
         </dl>
-        <VehiclePrice price={vehicle.price} reference={vehicle.fipe && `FIPE · ${formatPrice(vehicle.fipe.value)}`} />
+        {/* The card can be where someone first meets the reference, so it gets its full name. */}
+        <VehiclePrice price={vehicle.price} reference={vehicle.fipe && `Tabela FIPE · ${formatPrice(vehicle.fipe.value)}`} />
         <p className={styles.store}>{storeName(vehicle.storeId)}</p>
       </div>
     </article>

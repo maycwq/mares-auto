@@ -5,8 +5,8 @@ import styles from './VehiclePrice.module.css';
 
 type VehiclePriceProps = {
   price: number;
-  // The reference line ("FIPE · R$ 151.200"), only when there is a reference value. Its
-  // wording depends on where the price is shown, so the caller writes it.
+  // The reference line ("Tabela FIPE · R$ 151.200"), only when there is a reference
+  // value. Its wording depends on where the price is shown, so the caller writes it.
   reference?: ReactNode;
   context?: 'card' | 'detail';
 };
