@@ -9,13 +9,28 @@ When one of the open points below is decided, move it to the decided list. When 
 ### filters
 
 - **Car type is a primary filter on mobile too.** The M2 sheet shows it under "mais filtros", but the rail, the C01 decision and the handoff note all treat it as primary. The sheet layout is the inconsistency, not the filter architecture.
+- **Filter options come from the stock.** The 180-vehicle dataset sets the cuts, so each one returns a different set and some combinations come back empty:
+  - price: "Até R$ 60 mil" to "Até R$ 200 mil", plus "Acima de R$ 200 mil";
+  - year: "A partir de 2025" to "A partir de 2021", plus "Até 2020";
+  - mileage: "Até 10.000 km" to "Até 100.000 km".
+- **Fuel includes Diesel**, because a relevant part of the stock uses it.
+- **Marca/modelo stays one list, grouped by make.** Each make comes first as a whole ("Volkswagen · todos os modelos"), then its models. The chip names what was picked: "Volkswagen" or "Volkswagen Polo".
+- **Sort options:** "Mais recentes", "Menor preço", "Maior preço", "Menor quilometragem", "Mais novos".
+- **Selects use the native menu.** The design only has the `Input / Select` trigger. On mobile, "Ordenar" opens the native picker for the same sort state.
 
 ### copy across breakpoints
 
 - **Mobile can use shorter copy when space requires it.** Meaning and product state have to match; the literal text doesn't.
 - **The rail keeps "Marca/modelo" and "Km"**, with full accessible names ("Marca e modelo", "Quilometragem").
 - **With filters applied, mobile has to say that a refinement is active.** "Todos" must not suggest there's no filter.
+- **Only structured filters change the titles.** With filters, the results title is "Seminovos com estes filtros" on desktop and mobile alike. Search text narrows the results and their count, but it isn't a filter, and the design has no separate copy for it, so the initial titles stay ("Todos os seminovos", "Todos").
+- **The hero follows the filters, as in D2 and M3.** It shows the stock ("180 veículos disponíveis"), or the vehicles matching the filters: "N veículos com estes filtros" on desktop, "N veículos encontrados" on mobile.
 - **Composition differences are allowed.** The FIPE note, the active filters next to "voltar" and repeated evidence can differ between desktop and mobile. The information and state they carry stay available when needed, but nothing is duplicated just for symmetry.
+
+### load more
+
+- **"Ver mais veículos" while the action is still incremental.**
+- **"Ver os N veículos" only when the click reveals everything that's left.** N is what it reveals, not the total of results.
 
 ### price and FIPE
 
@@ -52,7 +67,6 @@ When one of the open points below is decided, move it to the decided list. When 
 
 Each one gets decided when the feature that needs it is built, starting from the simplest option that keeps the specified product.
 
-- **Select menus and sort options.** The design only has the `Input / Select` trigger, and the only sort option shown is "Mais recentes". Options come from the dataset when the listing is built.
 - **Removing a filter from its chip.** It isn't specified, and it shouldn't be added just because other products do it.
 - **Next step as a route, modal or panel.** This is an implementation choice, made on accessibility, navigation and state preservation.
 - **Contact, visit and trade-in intents.** Financing is the only detailed flow. The other three keep vehicle + intent, and no form is invented for them.
