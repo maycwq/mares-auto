@@ -98,6 +98,8 @@ npm run preview    # serve the production build
 npm run typecheck  # TypeScript only
 ```
 
+The vehicle dataset has its own commands; see [data/vehicles/README.md](data/vehicles/README.md).
+
 ### structure
 
 ```
@@ -114,9 +116,19 @@ src/
   assets/
     brand/                  Marés lockups, extracted from the Figma file
     icons/                  system icons, extracted from the Figma file
+  data/
+    vehicles.ts             types and access to the development dataset
+    vehicles.json           generated, don't edit by hand
+data/vehicles/              sources for the dataset (catalog, photos, FIPE, credits)
+public/media/vehicles/      vehicle photos from Wikimedia Commons
 scripts/
   extract-figma-assets.mjs  regenerates src/assets from a .fig export
+  vehicles/                 dataset generation
 ```
+
+### data
+
+There is no backend yet. The app reads a local dataset of 180 vehicles generated from structured sources with a fixed seed, so filters, sorting and counts run on stock that actually varies and stays the same between runs. Makes, models and versions are real; prices, mileage, stock and evidence are synthetic, and FIPE values are real or absent. Photos come from Wikimedia Commons under free licenses, with author and license kept per photo. How it's built and how to change it is in [data/vehicles/README.md](data/vehicles/README.md).
 
 ### tokens
 
