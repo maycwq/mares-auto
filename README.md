@@ -6,7 +6,7 @@ The product connects browsing, refinement, vehicle evaluation, value and risk si
 
 The experience originally started as a product design case and is now being developed here as a working product. From this point on, the repository is about implementing the final experience rather than documenting the exercise that started it.
 
-> **status:** the listing and the vehicle page work on desktop and mobile over a local dataset: search, filters, sorting, load more, then gallery, price against FIPE, evidence, details, similar vehicles and the way back to the same results. The next step only has a placeholder page so far.
+> **status:** the whole journey works on desktop and mobile over a local dataset: the listing (search, filters, sorting, load more), the vehicle page (gallery, price against the Tabela FIPE, evidence, details, similar vehicles, the way back to the same results) and the next step (choosing what to do with the car and the financing request). Requests are simulated; there is no backend yet.
 
 ## product baseline
 
@@ -115,7 +115,7 @@ src/
                             Vehicle / Card…), named after it
   listing/                  the listing page, its filters and its state
   vehicle/                  the vehicle page, its gallery and similar vehicles
-  nextStep/                 the next step (a placeholder for now)
+  nextStep/                 the next step: intent choice and the financing request
   lib/                      router, formatting, small hooks
   assets/
     brand/                  Marés lockups, extracted from the Figma file
@@ -144,7 +144,9 @@ Results are computed locally and shown after a short delay (`useListing.ts`), so
 
 A vehicle page (`/veiculos/v014`) knows which exploration it came from through history state (`src/vehicle/exploration.ts`): the listing's query string and how many pages away it is. "Voltar para N veículos" goes back that many entries, so the listing returns exactly as it was, scroll included, even after opening a few similar vehicles. Opened directly, with no listing behind it, the link offers the whole stock instead ("Ver todos os 180 veículos") and goes to `/`. The similar vehicles come from that same exploration (or the whole stock), ranked by a few plain criteria in turn: same model, same body type, closest price, closest year (`similarVehicles.ts`).
 
-The next step is a page of its own, `/veiculos/v014/proximo-passo`, with the intent in the query when a shortcut picked one (`?intencao=troca`, `?intencao=financiamento`). As a route, it keeps the vehicle and intent on reload and works with the browser's back button.
+The next step is a page of its own, `/veiculos/v014/proximo-passo`. The chosen intent sits in the query (`?intencao=troca`), so the vehicle page's shortcuts arrive with it selected and a reload keeps it. "Continuar" opens `/veiculos/v014/proximo-passo/financiamento` (or the intent's own path); only financing has a form so far, the other intents stop at a short state that leads back to the choice.
+
+The financing request (`src/nextStep/request.ts`) is one call with the form, the vehicle and the intent. Without a backend it only waits a moment and returns an id. Once sent, the history entry keeps that id, never the personal data, so the confirmation stays in place after a reload or when coming back to it, and the form can't be sent twice by accident.
 
 ### tokens
 
