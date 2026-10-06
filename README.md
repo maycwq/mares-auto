@@ -88,7 +88,7 @@ This is especially important while the codebase is still small: technical decisi
 
 The app is a static single-page build: **Vite + React + TypeScript**, styled with plain CSS (custom properties for tokens, CSS Modules for components), with **Vitest** for unit tests. There is no routing library, state library or form library; each one comes in when a feature actually needs it, and gets documented here when it does.
 
-Requires Node 20.19+ or 22.12+.
+Requires Node 20.19+ or 22.12+ (also declared in `engines`).
 
 ```sh
 npm install
@@ -176,3 +176,26 @@ npm run assets:extract -- path/to/file.fig
 `Brand` renders a lockup (`signature` or `wordmark`) in a tone (`dark` for light surfaces, `light` for navy) and keeps the asset's proportion; size it by height in the consumer's CSS. `Brand / Marés / Compact / Dark` is extracted but has no component until a screen uses it.
 
 `Icon` renders one of the nine system icons at 20 px, colored by `color/icon`. Icons are decorative; the control around them carries the accessible name.
+
+## deploy na Vercel
+
+The app is a static client-side build: `npm run build` writes everything to `dist/` (HTML, JS, CSS, fonts, vehicle photos and the dataset). There's no server, no environment variable and no secret involved.
+
+Importing the repository in Vercel (Add New → Project) should detect:
+
+| setting | value |
+| --- | --- |
+| Framework Preset | Vite |
+| Build Command | `npm run build` (typecheck, then `vite build`) |
+| Output Directory | `dist` |
+| Install Command | `npm install` (npm, from `package-lock.json`) |
+| Root Directory | the repository root |
+| Environment Variables | none |
+
+Leave those as detected; nothing needs to be overridden. Worth checking by hand:
+
+- **Production branch.** A new project deploys `main` to production. To publish another branch, change it under Settings → Environments → Production → Branch Tracking, or merge it into `main` first. Every other branch gets preview deployments.
+- **Node.js version.** Any version allowed by `engines` (`^20.19.0 || >=22.12.0`) works; Vercel's default is fine.
+
+`vercel.json` only adds the SPA fallback. Routing happens in the browser, so a reload or a direct link to `/veiculos/v014/proximo-passo?intencao=troca` has to get `index.html`. Every path without a file extension is rewritten to it; files always win over the rewrite, and a missing file (with an extension) still gets a real 404 instead of the page. The query string stays in the address, where the app reads it. A new route needs no change there, as long as its path has no dot.
+
