@@ -1,0 +1,113 @@
+/* N1–N7: one panel per step, 720px at most. On narrow screens it spans the screen, as
+   the 390px frames do. */
+
+.main {
+  padding-top: var(--space-5);
+  padding-bottom: 56px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 720px;
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding: var(--space-6);
+  box-sizing: border-box;
+  border-block: var(--stroke-default) solid var(--color-border-default);
+  background: var(--color-surface-subtle);
+}
+
+.success {
+  background: var(--color-feedback-success-subtle);
+}
+
+/* Inside the gray panel the context sits on white. */
+.context {
+  background: var(--color-surface-default);
+}
+
+.eyebrow,
+.successEyebrow {
+  margin: 0;
+  color: var(--color-action-primary);
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+}
+
+.successEyebrow {
+  color: var(--color-feedback-success);
+}
+
+.title {
+  margin: 0;
+  font: var(--type-heading-md);
+  letter-spacing: var(--type-heading-md-tracking);
+}
+
+.title:focus {
+  outline: none;
+}
+
+.text,
+.body {
+  margin: 0;
+  color: var(--color-foreground-secondary);
+  font: var(--type-body-sm);
+  letter-spacing: var(--type-body-sm-tracking);
+}
+
+.intents {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.intent {
+  padding: var(--space-1) var(--space-3) var(--space-3);
+  border: var(--stroke-default) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-default);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cpf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.note {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .panel {
+    margin-inline: auto;
+    border: var(--stroke-default) solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+  }
+
+  .intents {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding-top: var(--space-8);
+    padding-bottom: 80px;
+  }
+}
