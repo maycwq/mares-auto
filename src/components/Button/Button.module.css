@@ -38,15 +38,16 @@
   --color-icon: var(--color-foreground-inverse);
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled, [aria-disabled='true']) {
   background: var(--color-action-primary-hover);
 }
 
-.primary:active:not(:disabled) {
+.primary:active:not(:disabled, [aria-disabled='true']) {
   background: var(--color-action-primary-pressed);
 }
 
-.primary:disabled {
+.primary:disabled,
+.primary[aria-disabled='true'] {
   background: var(--color-surface-subtle);
 }
 

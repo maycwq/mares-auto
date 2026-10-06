@@ -1,0 +1,14 @@
+.inlineError {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--color-feedback-error);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}
+
+/* The text is 16px tall next to a 20px icon. */
+.inlineError > span {
+  padding-top: 2px;
+}

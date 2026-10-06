@@ -1,0 +1,59 @@
+.context {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-action-subtle);
+}
+
+.thumb {
+  flex: none;
+  width: 112px;
+  border-radius: var(--radius-sm);
+}
+
+/* A thumbnail too small for "foto indisponível" in body text. */
+.thumb:not(:has(img)) {
+  font: var(--type-caption);
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.label,
+.title,
+.price,
+.intent {
+  margin: 0;
+}
+
+/* Secondary instead of muted text: muted doesn't reach 4.5:1 on action-subtle. */
+.label {
+  color: var(--color-foreground-secondary);
+  font: var(--type-caption);
+  font-weight: 600;
+  letter-spacing: var(--type-caption-tracking);
+}
+
+.title {
+  font: var(--type-body-md);
+  font-weight: 600;
+  letter-spacing: var(--type-body-md-tracking);
+}
+
+.price {
+  font: var(--type-label-md);
+  letter-spacing: var(--type-label-md-tracking);
+}
+
+.intent {
+  color: var(--color-foreground-secondary);
+  font: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
+}

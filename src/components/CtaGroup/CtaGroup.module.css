@@ -1,0 +1,16 @@
+.group {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.row {
+  flex-wrap: wrap;
+}
+
+.stack {
+  flex-direction: column;
+}
+
+.stack > * {
+  width: 100%;
+}
