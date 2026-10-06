@@ -3,11 +3,13 @@ import { Icon } from '../Icon/Icon';
 import styles from './Select.module.css';
 
 export type SelectOption = { value: string; label: string };
+export type SelectGroup = { label: string; options: SelectOption[] };
 
 type SelectProps = {
   value: string;
   onChange: (value: string) => void;
-  options: SelectOption[];
+  // Plain options, or groups of options (rendered as <optgroup>).
+  options: SelectOption[] | SelectGroup[];
   // Accessible name. The visible text inside the control is not enough.
   label: string;
   // Shown while nothing is chosen; picking it again clears the selection. Without one,
@@ -28,11 +30,21 @@ export function Select({ value, onChange, options, label, placeholder, className
         aria-label={label}
       >
         {placeholder !== undefined && <option value="">{placeholder}</option>}
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+        {options.map((item) =>
+          'options' in item ? (
+            <optgroup key={item.label} label={item.label}>
+              {item.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </optgroup>
+          ) : (
+            <option key={item.value} value={item.value}>
+              {item.label}
+            </option>
+          ),
+        )}
       </select>
       <Icon name="chevron-down" className={styles.chevron} />
     </div>

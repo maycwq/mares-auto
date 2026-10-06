@@ -9,8 +9,8 @@ export const PAGE_SIZE = 12;
 
 export type Filters = {
   brand: string; // make slug, or "make/model"
-  price: string; // maximum price
-  year: string; // minimum year
+  price: string; // a price range, "ate-150000" or "acima-200000"
+  year: string; // a year range, "desde-2023" or "ate-2020"
   km: string; // maximum mileage
   body: string;
   transmission: string[];
@@ -47,8 +47,13 @@ const slug = (text: string) =>
     .replace(/^-|-$/g, '');
 
 type Option = { value: string; label: string };
+type Range = Option & { min?: number; max?: number };
 
-function brandOptionsFrom(stock: Vehicle[]): Option[] {
+// One group per make: the whole make first, then each model. The chip names what was
+// picked ("Volkswagen" or "Volkswagen Polo").
+type BrandOption = Option & { make: string; model?: string; chip: string };
+
+function brandGroupsFrom(stock: Vehicle[]) {
   const makes = new Map<string, Set<string>>();
   for (const vehicle of stock) {
     if (!makes.has(vehicle.make)) makes.set(vehicle.make, new Set());
@@ -56,28 +61,55 @@ function brandOptionsFrom(stock: Vehicle[]): Option[] {
   }
   return [...makes.keys()]
     .sort((a, b) => a.localeCompare(b, 'pt-BR'))
-    .flatMap((make) => [
-      { value: slug(make), label: make },
-      ...[...makes.get(make)!]
-        .sort((a, b) => a.localeCompare(b, 'pt-BR'))
-        .map((model) => ({ value: `${slug(make)}/${slug(model)}`, label: `${make} ${model}` })),
-    ]);
+    .map((make) => ({
+      label: make,
+      options: [
+        { value: slug(make), label: `${make} · todos os modelos`, make, chip: make },
+        ...[...makes.get(make)!]
+          .sort((a, b) => a.localeCompare(b, 'pt-BR'))
+          .map((model) => ({
+            value: `${slug(make)}/${slug(model)}`,
+            label: `${make} ${model}`,
+            make,
+            model,
+            chip: `${make} ${model}`,
+          })),
+      ] as BrandOption[],
+    }));
 }
 
-export const brandOptions = brandOptionsFrom(vehicles);
+export const brandGroups = brandGroupsFrom(vehicles);
+const brandOptions = brandGroups.flatMap((group) => group.options);
 
-export const priceOptions: Option[] = [60, 80, 100, 120, 150, 200, 250, 300].map((thousands) => ({
-  value: String(thousands * 1000),
-  label: `Até R$ ${thousands} mil`,
-}));
+// Cuts follow the stock: about a tenth of it costs up to R$ 65 mil, half up to R$ 107 mil,
+// nine tenths up to R$ 192 mil. "Acima de R$ 200 mil" reaches the rest.
+export const priceOptions: Range[] = [
+  ...[60, 70, 80, 90, 100, 120, 150, 200].map((thousands) => ({
+    value: `ate-${thousands * 1000}`,
+    label: `Até R$ ${thousands} mil`,
+    max: thousands * 1000,
+  })),
+  { value: 'acima-200000', label: 'Acima de R$ 200 mil', min: 200001 },
+];
 
-const years = [...new Set(vehicles.map((vehicle) => vehicle.year))].sort((a, b) => b - a);
-export const yearOptions: Option[] = years.map((year) => ({ value: String(year), label: `A partir de ${year}` }));
+// Most of the stock is from 2021 on; older cars are grouped together.
+export const yearOptions: Range[] = [
+  ...[2025, 2024, 2023, 2022, 2021].map((year) => ({ value: `desde-${year}`, label: `A partir de ${year}`, min: year })),
+  { value: 'ate-2020', label: 'Até 2020', max: 2020 },
+];
 
-export const kmOptions: Option[] = [10, 20, 40, 60, 80, 100].map((thousands) => ({
+// Around the quartiles: a quarter of the stock has up to 19.000 km, half up to 32.000 km,
+// three quarters up to 55.000 km.
+export const kmOptions: Range[] = [10, 20, 30, 50, 80, 100].map((thousands) => ({
   value: String(thousands * 1000),
   label: `Até ${formatKm(thousands * 1000)}`,
+  max: thousands * 1000,
 }));
+
+const inRange = (options: Range[], value: string, number: number) => {
+  const { min = -Infinity, max = Infinity } = options.find((option) => option.value === value)!;
+  return number >= min && number <= max;
+};
 
 const bodyTypes: { value: string; label: string; types: BodyType[] }[] = [
   { value: 'hatch', label: 'Hatch', types: ['hatch'] },
@@ -187,12 +219,12 @@ function matches(vehicle: Vehicle, query: string, filters: Filters) {
   if (words.some((word) => !searchText.get(vehicle.id)!.includes(word))) return false;
 
   if (filters.brand) {
-    const [make, model] = filters.brand.split('/');
-    if (slug(vehicle.make) !== make || (model && slug(vehicle.model) !== model)) return false;
+    const brand = brandOptions.find((option) => option.value === filters.brand)!;
+    if (vehicle.make !== brand.make || (brand.model && vehicle.model !== brand.model)) return false;
   }
-  if (filters.price && vehicle.price > Number(filters.price)) return false;
-  if (filters.year && vehicle.year < Number(filters.year)) return false;
-  if (filters.km && (vehicle.km === undefined || vehicle.km > Number(filters.km))) return false;
+  if (filters.price && !inRange(priceOptions, filters.price, vehicle.price)) return false;
+  if (filters.year && !inRange(yearOptions, filters.year, vehicle.year)) return false;
+  if (filters.km && (vehicle.km === undefined || !inRange(kmOptions, filters.km, vehicle.km))) return false;
   if (filters.body && !bodyTypes.find((b) => b.value === filters.body)!.types.includes(vehicle.bodyType)) return false;
   if (filters.transmission.length) {
     const accepted = transmissions.filter((t) => filters.transmission.includes(t.value)).flatMap((t) => t.types);
@@ -226,7 +258,7 @@ const labelOf = (options: Option[], value: string) => options.find((option) => o
 // One entry per applied value, in the order the filters appear. Chips and counts use it.
 export function appliedFilters(filters: Filters) {
   return [
-    filters.brand && labelOf(brandOptions, filters.brand),
+    filters.brand && brandOptions.find((option) => option.value === filters.brand)!.chip,
     filters.price && labelOf(priceOptions, filters.price),
     filters.year && labelOf(yearOptions, filters.year),
     filters.km && labelOf(kmOptions, filters.km),

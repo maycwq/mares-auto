@@ -7,7 +7,7 @@ import { cx } from '../lib/cx';
 import styles from './FilterControls.module.css';
 import {
   bodyOptions,
-  brandOptions,
+  brandGroups,
   fuelOptions,
   kmOptions,
   priceOptions,
@@ -31,7 +31,7 @@ export function PrimaryFilters({ filters, onChange, short = false }: FieldsProps
       <Select
         label="Marca e modelo"
         placeholder={short ? 'Marca/modelo' : 'Marca e modelo'}
-        options={brandOptions}
+        options={brandGroups}
         value={filters.brand}
         onChange={(brand) => set({ brand })}
       />

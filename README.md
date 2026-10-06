@@ -137,7 +137,7 @@ There is no backend yet. The app reads a local dataset of 180 vehicles generated
 
 `src/lib/router.tsx` is a small history router: two kinds of pages don't need a library. Going to a new page starts at the top; going back returns to where the page was scrolled.
 
-The listing keeps its whole exploration state in the URL: search text, filters, sort and how many results are showing (`/?busca=civic&preco=150000&cambio=automatico&mostrar=24`). Fields, chips, counts and cards all read that one state, so opening a vehicle and coming back, or reloading, finds the same exploration. Refining the listing replaces the current history entry instead of adding one, so "back" leaves the listing instead of undoing filters. The mobile sheet and the desktop "mais filtros" drawer edit a draft that only becomes state when applied.
+The listing keeps its whole exploration state in the URL: search text, filters, sort and how many results are showing (`/?busca=civic&preco=ate-150000&cambio=automatico&mostrar=24`). Fields, chips, counts and cards all read that one state, so opening a vehicle and coming back, or reloading, finds the same exploration. Refining the listing replaces the current history entry instead of adding one, so "back" leaves the listing instead of undoing filters. The mobile sheet and the desktop "mais filtros" drawer edit a draft that only becomes state when applied.
 
 Results are computed locally and shown after a short delay (`useListing.ts`), so the loading state exists before there's a backend. A result set that was already shown comes back immediately.
 
