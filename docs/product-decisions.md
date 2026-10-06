@@ -62,7 +62,7 @@ When one of the open points below is decided, move it to the decided list. When 
 - **Field errors use the full `Feedback / Inline Error`** (icon and message) under `Input / Text` in its error state, for every field. N3 draws the CPF error without the icon; the root component of the visual system wins over that inconsistency. Behavior is the same for all fields: the error is tied to its field, the message says what to fix, focus goes to the first error on submit, and fixing a field clears only its own error.
 - **`Accordion / Disclosure` surfaces are inverted from the visual system.** In the component, Default is `surface/default` (white) and Hover is `surface/subtle`, which made each item look like a separate card on the section. Here the resting state is `surface/subtle`, the same as the section, so only the dividers give structure, and hover lifts the item to `surface/default`. Focus keeps the resting surface with the focus ring. Spacing, type, chevron and behavior are the component's.
 - **Explanations go behind an info button (a toggletip).** The visual system has no tooltip or popover, so it's built from its tokens and `Icon / Info`. Used for the Tabela FIPE for now.
-- **The skeleton gets a subtle shimmer or pulse.** The design leaves motion undefined. It keeps the real `Vehicle / Card Skeleton` structure, causes no layout shift when data arrives, and becomes static or nearly static under `prefers-reduced-motion`.
+- **The skeleton is static and rare.** It keeps the real `Vehicle / Card Skeleton` structure, but it only appears when there is nothing on screen yet and the first results really take more than 160 ms. It never covers a set that's already showing, and it has no shimmer or pulse (this replaces the earlier shimmer decision; see motion).
 
 ### next step
 
@@ -73,6 +73,25 @@ When one of the open points below is decided, move it to the decided list. When 
 - **`Vehicle / Next-step Context` shows the chosen intent as content, not as variants.** Anatomy, hierarchy and behavior stay the same; only the intent value changes: the design's "simulação de financiamento", or exactly the N1 label for the others ("Agendar visita").
 - **Error messages, specific and actionable like the CPF one:** "Informe seu nome." and "Confira o WhatsApp e digite o DDD e o número." The CPF is checked by its check digits too, not only by length; WhatsApp needs the area code (10 or 11 digits).
 - **The request is simulated** until there's a backend: one call with form, vehicle and intent. Nothing is stored. The confirmation stays after a reload or when coming back through history, and the form can't be sent twice.
+
+### motion
+
+The direction comes from the motion audit and its matrix (interactions L01–H02, QA Q01–Q18). Motion only makes a change readable; state, focus, validation and navigation never wait for it. The rules that shape the code are in the README ("motion"); these are the product decisions behind them.
+
+- **No artificial waits.** The listing used to show results after a simulated 350 ms delay, so the skeleton covered every refinement. The data is local, so a new result set now arrives in the same frame as the filter, search or sort that asked for it. Waits and failures that the local data never produces can be simulated in development only.
+- **Requested and published are two states.** Controls and the URL follow what was asked at once; titles, chips, both counts and the cards follow the set actually on screen, and change together. A slow set shows "atualizando veículos" after 160 ms; one that fails keeps the previous set and says "não foi possível atualizar os veículos". Only the latest request can publish.
+- **Search asks once typing pauses for 160 ms.** Enter, the clear button and an empty field ask right away.
+- **Motion runs on in-app moves only.** Back/forward, a reload or a link opened directly land without motion, restoring scroll and the card that was opened.
+- **The selected intent card takes the accent border.** The motion direction (N02) has the whole card show the selection with `action/primary` on its existing border; thickness, background and size stay. It's the one visual state added by the motion work.
+- **Sending says so: "Enviando solicitação".** The button keeps its size and crossfades to that label while the request is out; the request itself still waits as long as the simulated network call (700 ms), with no minimum added. Copy taken from the motion direction (F06).
+- **A failed send keeps everything and says "Não foi possível enviar sua solicitação. Tente de novo."** Values stay, the button is back at once and nothing retries alone. The simulated request never fails today, so this state is only reachable in development; the copy is new and still needs confirmation.
+- **The desktop filter rail stays in reach while scrolling, when it fits** the window with 24 px to spare. A short window, a larger font or zoom turn that off.
+- **The mobile filter bar is not sticky.** The direction allowed it only after checking the existing bar: "Filtros" and "Ordenar" sit inside the search toolbar with no surface of their own, so keeping them on screen would mean a new bar with its own background over the results. Not done.
+- **Card hover only on a fine pointer.** It recolors the existing outline; a tap doesn't leave it behind. Pressing shows the same color on any pointer. Focus shows at once.
+- **No new gestures or controls.** The gallery has no swipe, and none was added; its photos move with the thumbnails and the previous/next buttons that exist.
+- **After "Limpar filtros" in the empty state, focus continues at the results' title**, since the button leaves with the empty state.
+- **Turning a tablet to the wide layout closes the gallery overlay** (the wide layout has none) on the same photo, with focus on its thumbnail.
+- **The two Inter files of the first screen are preloaded.** With results on the first paint, text set in the fallback font reflowed when Inter arrived.
 
 ### commercial shortcuts
 
@@ -117,3 +136,4 @@ Each one gets decided when the feature that needs it is built, starting from the
 - **Removing a filter from its chip.** It isn't specified, and it shouldn't be added just because other products do it.
 - **What comes after contact, visit and trade-in.** For now they stop at the "ainda não pode ser concluída por aqui" state. Their real flow gets designed when there is one.
 - **"Lojas" and "Atendimento" in the header**, and a footer on mobile screens.
+- **The failed-send copy** ("Não foi possível enviar sua solicitação. Tente de novo.") until a real request can fail.
