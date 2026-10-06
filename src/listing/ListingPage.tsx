@@ -8,7 +8,6 @@ import { Select } from '../components/Select/Select';
 import { TextLink } from '../components/TextLink/TextLink';
 import { VehicleCard } from '../components/VehicleCard/VehicleCard';
 import { VehicleCardSkeleton } from '../components/VehicleCardSkeleton/VehicleCardSkeleton';
-import { vehicles } from '../data/vehicles';
 import { cx } from '../lib/cx';
 import { useMediaQuery } from '../lib/useMediaQuery';
 import { PrimaryFilters } from './FilterControls';
@@ -16,7 +15,6 @@ import { FilterSheet } from './FilterSheet';
 import {
   PAGE_SIZE,
   appliedFilters,
-  countResults,
   listingSearch,
   resultCount,
   secondaryFilterCount,
@@ -32,7 +30,7 @@ const SKELETON_COUNT = 6;
 // shows. While there's more after it, the action is incremental.
 const showMoreLabel = (remaining: number) => {
   if (remaining > PAGE_SIZE) return 'Ver mais veículos';
-  return remaining === 1 ? 'Ver o último veículo' : `Ver os ${remaining} veículos`;
+  return remaining === 1 ? 'Ver 1 veículo' : `Ver os ${remaining} veículos`;
 };
 
 export function ListingPage() {
@@ -43,10 +41,10 @@ export function ListingPage() {
   const resultsList = useRef<HTMLUListElement>(null);
 
   const applied = appliedFilters(state.filters);
-  // Only structured filters change the titles. Search text narrows the results (and their
-  // count) but it isn't a filter, and the design has no separate copy for it.
+  // Only structured filters change the titles. Search text narrows the results but it
+  // isn't a filter, and the design has no separate copy for it.
   const filtered = applied.length > 0;
-  const stock = filtered ? countResults('', state.filters) : vehicles.length;
+  const searched = state.query.trim() !== '';
   const visible = results.slice(0, state.shown);
   const remaining = results.length - visible.length;
   const secondaryCount = secondaryFilterCount(state.filters);
@@ -69,14 +67,18 @@ export function ListingPage() {
             <p className={styles.eyebrow}>estoque de seminovos</p>
             <h1 className={styles.title}>Encontre o carro que faz sentido para você</h1>
           </div>
+          {/* The number is always the current result set: search, filters or both. Only
+              the words around it follow the state, as in D1, D2 and M3. */}
           <p className={styles.stock}>
-            <span className={styles.stockNumber}>{stock}</span>{' '}
+            <span className={styles.stockNumber}>{results.length}</span>{' '}
             {filtered ? (
               <>
-                <span className={styles.wideOnly}>{stock === 1 ? 'veículo com estes filtros' : 'veículos com estes filtros'}</span>
-                <span className={styles.narrowOnly}>{stock === 1 ? 'veículo encontrado' : 'veículos encontrados'}</span>
+                <span className={styles.wideOnly}>{results.length === 1 ? 'veículo com estes filtros' : 'veículos com estes filtros'}</span>
+                <span className={styles.narrowOnly}>{results.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}</span>
               </>
-            ) : stock === 1 ? (
+            ) : searched ? (
+              results.length === 1 ? 'veículo encontrado' : 'veículos encontrados'
+            ) : results.length === 1 ? (
               'veículo disponível'
             ) : (
               'veículos disponíveis'
