@@ -1,10 +1,11 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
 }
 
+/* The 8px above the message belongs to the message, so it opens and closes with it. */
 .label {
+  margin-bottom: var(--space-2);
   color: var(--color-foreground-primary);
   font: var(--type-label-md);
   letter-spacing: var(--type-label-md-tracking);
@@ -21,6 +22,7 @@
   color: var(--color-foreground-primary);
   font: var(--type-body-md);
   letter-spacing: var(--type-body-md-tracking);
+  transition: border-color var(--motion-micro) linear;
 }
 
 .input::placeholder {
@@ -45,6 +47,10 @@
 .invalid,
 .invalid:hover {
   border-color: var(--color-feedback-error);
+}
+
+.message {
+  padding-top: var(--space-2);
 }
 
 .hint {
